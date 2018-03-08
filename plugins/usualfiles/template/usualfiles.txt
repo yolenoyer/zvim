@@ -1,0 +1,8 @@
+# Usual files menu
+# Raccourcis spéciaux:
+#    <space>m  supprimer/réinstaller les mappings locaux
+#    <F11>     fermer la fenêtre
+#    <return>  choisir l'élément sélectionné
+
+# Exemple:
+p	/etc/profile

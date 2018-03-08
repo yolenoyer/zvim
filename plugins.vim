@@ -1,0 +1,172 @@
+
+
+" Vundle :
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=/home/io/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+
+
+"'''''''''''''''''''' Plugin Vundle.vim ''''''''''''''''''''
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+
+
+"'''''''''''''''''''' Plugin ctrlp.vim ''''''''''''''''''''
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_cmd='CtrlPMRUFiles'
+let g:ctrlp_extensions = ['buffertag', 'tag', 'line']
+let g:ctrlp_regexp = 1
+let g:ctrlp_prompt_mappings = {
+	\ 'ToggleType(1)':        ['<c-f>', '<c-right>'],
+	\ 'ToggleType(-1)':       ['<c-b>', '<c-left>'],
+	\ 'AcceptSelection("e")': ['<s-cr>', '<2-LeftMouse>'],
+	\ 'AcceptSelection("t")': ['<cr>', '<c-t>'],
+    \ }
+
+
+
+"'''''''''''''''''''' Plugin vim-surround '''''''''''''
+Plugin 'tpope/vim-surround'
+
+
+
+"'''''''''''''''''''' Plugin vim-textobj-variable-segment '''''
+Plugin 'julian/vim-textobj-variable-segment'
+" Dépendance:
+Plugin 'kana/vim-textobj-user'
+
+
+
+"'''''''''''''''''''' Plugin nerdcommenter ''''''''''''''''''''
+Plugin 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims=1
+let g:NERDCreateDefaultMappings = 0
+map <space>cc <plug>NERDCommenterInvert
+map <space>ci <plug>NERDCommenterInvert
+map <space>c<space> <plug>NERDCommenterInvert
+map <space>cb <plug>NERDCommenterAlignBoth
+map <space>cv <plug>NERDCommenterAlignBoth
+map <space>cy <plug>NERDCommenterYank
+map <space>cu <plug>NERDCommenterUncomment
+map <space>cm <plug>NERDCommenterMinimal
+map <space>cs <plug>NERDCommenterSexy
+
+
+
+"'''''''''''''''''''' Plugin vim-abolish ''''''''''''''''''''
+Plugin 'tpope/vim-abolish'
+
+
+
+"'''''''''''''''''''' Plugin vim-eunuch ''''''''''''''''''''
+" Commandes unix:
+Plugin 'tpope/vim-eunuch'
+call _#cabbr({
+ \	'mv' : 'Move', 'rm' : 'Remove',
+ \	'chmod' : 'Chmod', 'chx' : 'Chmod +x',
+ \	'ww' : 'SudoWrite',
+ \ })
+
+
+
+"'''''''''''''''''''' Plugin tabular ''''''''''''''''''''
+" alignement de texte:
+Plugin 'godlygeek/tabular'
+call _#cabbr('ta', 'Tabu')
+
+
+
+"'''''''''''''''''''' Plugin vim-cycle ''''''''''''''''''''
+" Toggle words:
+Plugin 'zef/vim-cycle'
+"au VimEnter * call AddMyCycleGroups()
+
+fun! AddMyCycleGroups()
+	let l:groups = [
+		\ ['True', 'False'], ['yes', 'no'], ['Yes', 'No'],
+		\ ['width', 'height'], ['vertical', 'horizontal'],
+		\ ['hight', 'low'],
+		\ ['col', 'line', 'row'], ['cols', 'lines', 'row'],
+		\ ['black', 'white'], ['dark', 'light'],
+		\ [ 'blue', 'green', 'orange', 'cyan', 'red', 'purple', 'yellow' ],
+        \ ['x', 'y'],
+		\]
+	for l:group in l:groups
+		call AddCycleGroup(l:group)
+	endfor
+endf
+
+
+
+"'''''''''''''''''''' Plugin vim-easyescape ''''''''''''''''''
+Plugin 'zhou13/vim-easyescape'
+let g:easyescape_chars = { "j": 1, "k": 1 }
+let g:easyescape_timeout = 100
+cnoremap jk <ESC>
+cnoremap kj <ESC>
+
+
+
+if $ZV != 'light'
+
+	"'''''''''''''''''''' Plugin 'airblade/vim-gitgutter' ''''''''''
+	Plugin 'airblade/vim-gitgutter'
+
+
+
+	"'''''''''''''''''''' Plugin nerdtree ''''''''''''''''''''
+	Plugin 'scrooloose/nerdtree'
+	noremap <silent> <m-a> :NERDTreeToggle<cr>
+	noremap <silent> <m-f> :NERDTreeFind<cr>
+
+
+
+	"'''''''''''''''''''' Plugin gundo.vim ''''''''''''''''''''
+	Plugin 'sjl/gundo.vim'
+	nnoremap <silent> <m-u> :GundoToggle<CR>
+
+
+
+	"'''''''''''''''''''' Plugin vim-quickrun ''''''''''''''''''''
+	Plugin 'thinca/vim-quickrun'
+	noremap <silent> <m-r> :QuickRun<cr>
+	inoremap <silent> <m-r> <c-o>:QuickRun<cr>
+
+
+
+	"'''''''''''''''''''' Plugin cmdalias.vim ''''''''''''''''''''
+	" Alias de commande:
+	Plugin 'cmdalias.vim'
+
+
+
+	"'''''''''''''''''''' Plugin savemap.vim ''''''''''''''''''''
+	" Save mappings:
+	Plugin 'tyru/savemap.vim'
+
+
+
+	"'''''''''''''''''''' Plugin undo_tags ''''''''''''''''''''
+	" Tagger un undo:
+	Plugin 'undo_tags'
+
+
+
+	"'''''''''''''''''''' Plugin vim-colorschemes '''''''''''''
+	" Des centaines de colorschemes:
+	Plugin 'flazz/vim-colorschemes'
+	" A conserver (git modifié avec une liste de colorschemes choisis):
+	" Plugin 'felixhummel/setcolors.vim'
+
+endif
+
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+

@@ -1,0 +1,209 @@
+
+
+" Essentiel :
+
+set nocompatible
+
+
+
+
+" Affichage :
+
+set nohls               " no highlight search
+set so=5                " scrolloff : marge autour du curseur
+set display=lastline    " affiche la dernière ligne même si elle trop longue
+set ml                  " modeline (options vim à la fin des fichiers)
+
+" Affiche la ligne d'édition en cours (console uniquement):
+if !has('gui_running')
+	autocmd InsertEnter * set cul
+	autocmd InsertLeave * set nocul
+endif
+
+
+
+
+" Interface :
+
+set hidden              " n'empèche pas de cacher un buffer non sauvegardé
+set ruler               " affiche la position du curseur
+set is                  " affiche la recherche au fur et à mesure, et permet ctrl-l
+set sc                  " affiche les commandes partielles en bas
+set ls=2                " laststatus : toujours une barre d'état
+set vb t_vb=            " no bell
+set rnu                 " affiche les numéros de ligne relatifs
+set noea                " noequalalways : pas de redimensionnement auto
+set wmnu                " menu de completion dans la ligne de commande (touche <tab>)
+set sb spr              " Nouvelles fenêtres en bas et à droite
+set timeoutlen=100000   " Temps d'attente avant annulation combo touches
+set shortmess+=I        " pas de message d'intro sur l'Ouganda
+set history=1000        " longueur d'historique
+set mouse=a             " autorise la souris en mode terminal
+let &titlestring = '%f   |   %{getcwd()}'
+                        " Titre de la fenêtre
+
+
+
+
+" Édition / formatage :
+
+set ts=4                " tabstop : nombre de caractères d'une tabulation
+set sw=4                " shiftwidth : nombre de caractères pour l'indentation automatique
+set fo=tcqrow           " formatoptions : commentaires c++ assistés, retour à la ligne
+                        " automatique...
+set fo+=j               " la commande j peut joindre les commentaires intelligemment
+set tw=100              " textwidth : largeur texte max
+set backspace=indent,eol,start  " more powerful backspacing
+set cinoptions=l1L0g0(0Ws
+	" switch/case basique (l1), labels basiques (L0),
+	" classes scopes vers la gauche (g0),
+	" parenthèses alignés par tabulations((0),
+	" parenthèses à la fin = 1 tabulation seulement (Ws)
+
+
+
+
+" Indent :
+
+set indk=o,O            " indentkeys : caractères pouvant causer une réindentation auto
+set si                  " indent auto en c
+set ai
+
+
+
+
+" Affichage des lignes trop longues :
+
+set linebreak
+set breakindent
+let &showbreak = ' \ '
+let &breakat=' 	!@*-+;:,./?()[]{}'
+
+
+
+
+" Divers :
+
+set tags+=.tags         " pour pouvoir cacher le fichier tags
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
+
+
+
+
+" Folding :
+
+set foldmethod=syntax
+set foldnestmax=10      " deepest fold is 10 levels
+set nofoldenable        " dont fold by default
+set foldlevel=1         " this is just what i use
+
+
+
+
+" Syntaxe :
+
+syntax on
+let g:is_bash=1         " Pour la syntaxe des scripts shell
+
+
+
+
+" Persistent undo :
+
+if has('persistent_undo')
+    let &undodir = expand('$HOME/.vim/undodir')
+    call system('mkdir -p '.&undodir)
+    set undofile
+endif
+
+
+
+
+
+
+" Plugins :
+
+" Commande LocalPlugin
+let s:local_plugins_path = '/home/io/scripts/zvim/plugins'
+command! -nargs=1 LocalPlugin
+ \ exe printf('set rtp+=%s/%s', s:local_plugins_path, <q-args>)
+
+
+
+" Plugins persos de base :
+
+" Init
+LocalPlugin init
+
+" Fonctions utiles
+LocalPlugin _
+
+" Abbréviations des commandes
+LocalPlugin cabbreviations
+
+" Changement du chemin courant, suivant le fichier courant
+LocalPlugin workingdir
+
+
+
+" Plugins externes :
+let s:this_dir = expand('<sfile>:p:h')
+exe printf('source %s/plugins.vim', s:this_dir)
+
+
+
+if $ZV != 'light'
+	" Plugins persos supplémentaires lorsque la variable
+	" d'environnement $ZV n'est pas égale à 'light':
+
+	" Menu de fichiers communs
+	LocalPlugin usualfiles
+
+	" Touche <cr> améliorée
+	LocalPlugin returnkey
+	let g:returnkey_mode = 'off'
+
+	" Gestion des plugins persos
+	LocalPlugin manplug
+
+	" Fonctions manipulant les chemins des fichiers en cours d'édition
+	LocalPlugin bufpath
+
+	" Pysv
+	LocalPlugin pysv
+
+	" Tabe / Tabi / Tabn / EE
+	LocalPlugin tabedit
+
+	" Sandbox
+	LocalPlugin sandbox
+
+	" Ouverture d'un terminal ou d'un gestionnaire de fichiers
+	LocalPlugin callterm
+
+	" Fonctionnalités diverses, non-essentielles
+	LocalPlugin morefeatures
+
+
+	" Colorscheme :
+
+	set background=dark
+	colorscheme gruvbox
+	hi Normal ctermbg=232 guibg=black
+	hi CursorLine ctermbg=234 guibg=#080808 gui=NONE
+	hi SignColumn ctermbg=234
+	hi Visual ctermbg=238 cterm=NONE term=NONE gui=NONE guibg=#303030
+	hi Search ctermbg=240 ctermfg=yellow cterm=bold term=bold
+	hi CursorLineNr ctermbg=NONE guibg=NONE
+
+	" colorscheme desert
+	" hi Normal guibg=black
+	" hi NonText guibg=black
+	" hi MatchParen ctermfg=yellow cterm=bold ctermbg=NONE guifg=yellow gui=bold guibg=NONE
+	" hi Special cterm=bold
+	" hi link LineNr Ignore
+
+endif " $ZV != 'light'
+
+
+

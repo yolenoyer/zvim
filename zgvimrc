@@ -1,0 +1,9 @@
+
+set go-=m go-=T go-=e  " menu, barre d'outils, tabs graphiques
+set go-=l go-=L go-=r go-=R " barres de scroll
+
+set vb t_vb=           " no bell (doit être initialisé dans le gvimrc)
+
+command! -nargs=1 FontSize let &guifont = 'Droid Sans Mono '.<args>
+FontSize 10
+
