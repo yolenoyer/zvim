@@ -156,6 +156,12 @@ if $ZV != 'light'
 
 
 
+	"'''''''''''''''''''' Plugin vim-case-convert '''''''''''''''
+	" Convertit camelcase -> snake -> hyphen:
+	Plugin 'chiedo/vim-case-convert'
+
+
+
 	"'''''''''''''''''''' Plugin vim-colorschemes '''''''''''''
 	" Des centaines de colorschemes:
 	Plugin 'flazz/vim-colorschemes'
