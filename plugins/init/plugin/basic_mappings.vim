@@ -12,18 +12,12 @@ noremap ; .
 nnoremap gp ]p
 nnoremap gP ]P
 
-" Alt-p:
-nnoremap ð ]p
-" Shift-Alt-P:
-nnoremap Ð ]P
-
 
 
 
 "'''''''''''''''''''' Yanks
 
 nnoremap yp Yp
-nnoremap yw yiw
 
 
 
@@ -36,7 +30,7 @@ noremap <m-:> @:
 
 
 
-"'''''''''''''''''''' Motions
+"'''''''''''''''''''' Déplacements curseur
 
 noremap <silent> <Down> gj
 noremap <silent> <Up> gk
