@@ -6,6 +6,8 @@ noremap go i<cr><esc>
 
 " Supprimer tout le contenu d'une ligne
 nnoremap dD 0D
+nnoremap dp ddp
+nnoremap dP ddkP
 
 
 
