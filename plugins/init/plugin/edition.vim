@@ -44,7 +44,7 @@ endf
 
 
 " Supprime tous les espaces en fin de ligne dans le buffer en cours:
-nnoremap <silent> è<space> :%s/\s\+$//
+nnoremap <silent> _<space> :%s/\s\+$//
 
 
 

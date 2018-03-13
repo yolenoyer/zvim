@@ -54,7 +54,7 @@ noremap <space>, f<space>,
 
 "'''''''''''''''''''' Buffers
 
-noremap èè <c-^>
+noremap __ <c-^>
 
 
 

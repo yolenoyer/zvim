@@ -22,12 +22,24 @@ call extend(g:callterm_terminals, {
 
 
 
-" Mappings :
+" Plug mappings :
 
-nnoremap <silent> èT :call callterm#call_term("#current#")<cr>
-nnoremap <silent> èt :call callterm#call_term("#file#")<cr>
-nnoremap <silent> èB :call callterm#call_file_browser("#current#")<cr>
-nnoremap <silent> èb :call callterm#call_file_browser("#file#")<cr>
+nnoremap <silent> <plug>CalltermTermCurrent :call callterm#call_term("#current#")<cr>
+nnoremap <silent> <plug>CalltermTermFile :call callterm#call_term("#file#")<cr>
+nnoremap <silent> <plug>CalltermBrowserCurrent :call callterm#call_file_browser("#current#")<cr>
+nnoremap <silent> <plug>CalltermBrowserFile :call callterm#call_file_browser("#file#")<cr>
 
 
+" Normal mappings :
+
+if !exists('g:callterm_nomapping') || !g:callterm_nomapping
+	call _#set_mapleader_from_var('g:callterm_mapleader')
+
+	map <leader>T <plug>CalltermTermCurrent
+	map <leader>t <plug>CalltermTermFile
+	map <leader>B <plug>CalltermBrowserCurrent
+	map <leader>b <plug>CalltermBrowserFile
+
+	call _#restore_mapleader()
+endif
 

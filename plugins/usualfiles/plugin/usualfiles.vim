@@ -42,17 +42,5 @@ noremap <plug>UsualfilesOpen :call usualfiles#open()<cr>
 
 
 
-" Normal mappings:
-
-if !hasmapto('<plug>UsualfilesTabOpen')
-	map <c-f11> <plug>UsualfilesTabOpen
-endif
-
-if !hasmapto('<plug>UsualfilesOpen')
-	map <f11> <plug>UsualfilesOpen
-endif
-
-
-
 let &cpo= s:keepcpo
 unlet s:keepcpo

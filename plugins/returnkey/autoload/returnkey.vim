@@ -1,5 +1,5 @@
 
-let s:return_mode = -1
+let s:return_mode = v:false
 
 
 "'''''''''''''''''''' function! returnkey#disp_state(old_mode)
@@ -41,9 +41,9 @@ function! returnkey#set_mode(action, verbose)
 	let l:old_mode = s:return_mode
 
 	if a:action == 'on'
-		let s:return_mode = 1
+		let s:return_mode = v:true
 	elseif a:action == 'off'
-		let s:return_mode = 0
+		let s:return_mode = v:false
 	elseif a:action == 'toggle'
 		let s:return_mode = !s:return_mode
 	else
@@ -61,6 +61,12 @@ function! returnkey#set_mode(action, verbose)
 	if a:verbose == 1
 		call returnkey#disp_state(l:old_mode)
 	endif
+endf
+
+
+"'''''''''''''''''''' function! returnkey#get_mode()
+function! returnkey#get_mode()
+	return s:return_mode
 endf
 
 

@@ -39,6 +39,13 @@ endf
 
 
 
+"'''''''''''''''''''' function! _#exists_eq(var, val)
+function! _#exists_eq(var, val)
+	return exists(a:var) && {a:var} == a:val
+endf
+
+
+
 function! s:cabbr(alias, replace)
 	if exists('*CmdAlias')
 		call CmdAlias(a:alias, a:replace)
@@ -99,6 +106,16 @@ endfunction
 
 
 
+"'''''''''''''''''''' function! _#capitalize(str)
+function! _#capitalize(str)
+	if empty(a:str)
+		return ''
+	endif
+	return toupper(a:str[0]) . strpart(a:str, 1)
+endf
+
+
+
 "''''''''''''''''''''     function! _#get_all_matches(str, pat)
 function! _#get_all_matches(expr, pat)
 	let l:matches = []
@@ -145,4 +162,40 @@ function! _#restore_option(option_name)
 endf
 
 
+
+"'''''''''''''''''''' function! _#set_mapleader(val)
+function! _#set_mapleader(val)
+	let s:old_mapleader = exists('mapleader') ? mapleader : v:none
+	let g:mapleader = a:val
+endf
+
+
+
+"'''''''''''''''''''' function! _#set_mapleader_from_var(varname)
+function! _#set_mapleader_from_var(varname)
+	if exists(a:varname)
+		call _#set_mapleader({a:varname})
+	else
+		if exists('g:mapleader')
+			call _#set_mapleader(g:mapleader)
+		else
+			call _#set_mapleader('\')
+		endif
+	endif
+endf
+
+
+
+"'''''''''''''''''''' function! _#restore_mapleader()
+function! _#restore_mapleader()
+	if !exists('s:old_mapleader')
+		return
+	endif
+	if s:old_mapleader != v:none
+		let g:mapleader = s:old_mapleader
+	elseif exists('g:mapleader')
+		unlet g:mapleader
+	endif
+	unlet s:old_mapleader
+endf
 

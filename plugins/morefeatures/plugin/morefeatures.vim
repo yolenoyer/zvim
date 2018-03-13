@@ -51,6 +51,7 @@ endf
 
 inoremap <c-r><c-d> <c-r>=Date()<cr>
 inoremap <c-r><c-t> <c-r>=Time()<cr>
+inoremap <c-r><c-a> <c-r>=printf("%s %s", Time(), Date())<cr>
 
 ""'''''''''''''''''''' function! Date()
 function! Date()
@@ -78,7 +79,7 @@ call _#cabbr({
 "''''''''''''''''''''     function! Message(cmd, mode)
 function! Message(cmd, mode)
 	redir => l:message
-	silent execute a:cmd
+		silent execute a:cmd
 	redir END
 
 	if empty(l:message)
@@ -87,7 +88,7 @@ function! Message(cmd, mode)
 		exe a:mode == 'tab' ? 'tabnew' : 'new'
 		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
 		silent put=l:message
-		normal gg2ddG
+		normal gg"_2ddG
 	endif
 endfunction
 
@@ -96,8 +97,8 @@ endfunction
 
 "'''''''''''''''''''' Recherche Web
 
-vnoremap <silent> èw <esc>:call morefeatures#duckduckgo(_#get_visual())<cr><cr>
-nnoremap <silent> èw :call morefeatures#duckduckgo(expand('<cword>'))<cr><cr>
+vnoremap <silent> _w <esc>:call morefeatures#duckduckgo(_#get_visual())<cr><cr>
+nnoremap <silent> _w :call morefeatures#duckduckgo(expand('<cword>'))<cr><cr>
 
 
 

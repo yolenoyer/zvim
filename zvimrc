@@ -143,6 +143,7 @@ LocalPlugin cabbreviations
 
 " Changement du chemin courant, suivant le fichier courant
 LocalPlugin workingdir
+let g:workingdir_mapleader = "\<f1>"
 
 
 
@@ -158,10 +159,12 @@ if $ZV != 'light'
 
 	" Menu de fichiers communs
 	LocalPlugin usualfiles
+	map <f11> <plug>UsualfilesOpen
+	map <c-f11> <plug>UsualfilesTabOpen
 
 	" Touche <cr> améliorée
 	LocalPlugin returnkey
-	let g:returnkey_mode = 'off'
+	map <f1><cr> <plug>ReturnkeyToggleMode
 
 	" Gestion des plugins persos
 	LocalPlugin manplug
@@ -177,9 +180,12 @@ if $ZV != 'light'
 
 	" Sandbox
 	LocalPlugin sandbox
+	let g:sandbox_mapleader = "\<f2>\<f2>"
+	map <F2><F2><F2> <plug>SandboxCurrentFT
 
 	" Ouverture d'un terminal ou d'un gestionnaire de fichiers
 	LocalPlugin callterm
+	let g:callterm_mapleader = "\<f2>"
 
 	" Fonctionnalités diverses, non-essentielles
 	LocalPlugin morefeatures
