@@ -120,21 +120,21 @@ if $ZV != 'light'
 
 	"'''''''''''''''''''' Plugin nerdtree ''''''''''''''''''''
 	Plugin 'scrooloose/nerdtree'
-	noremap <silent> <m-a> :NERDTreeToggle<cr>
-	noremap <silent> <m-f> :NERDTreeFind<cr>
+	let NERDTreeQuitOnOpen = 1  " Ferme le menu à l'ouverture d'un fichier
+	nnoremap <silent> <space>t :NERDTreeFind<cr>
+	nnoremap <silent> <F2>t :NERDTreeToggle<cr>
 
 
 
 	"'''''''''''''''''''' Plugin gundo.vim ''''''''''''''''''''
 	Plugin 'sjl/gundo.vim'
-	nnoremap <silent> <m-u> :GundoToggle<CR>
+	nnoremap <silent> _u :GundoToggle<CR>
 
 
 
 	"'''''''''''''''''''' Plugin vim-quickrun ''''''''''''''''''''
 	Plugin 'thinca/vim-quickrun'
-	noremap <silent> <m-r> :QuickRun<cr>
-	inoremap <silent> <m-r> <c-o>:QuickRun<cr>
+	noremap <silent> <space>r :QuickRun<cr>
 
 
 

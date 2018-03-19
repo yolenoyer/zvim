@@ -39,7 +39,11 @@ inoremap <silent> <Up> <c-o>gk
 
 noremap ç ^
 
-noremap <kEnter> G
+if has('gui_running')
+	noremap <kEnter> G
+else
+	noremap <cr> G
+endif
 
 noremap <m-e> ge
 noremap <m-E> gE
