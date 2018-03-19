@@ -191,6 +191,38 @@ if $ZV != 'light'
 	LocalPlugin morefeatures
 
 
+
+	" Qpatterns
+
+	let g:qpatterns_dev_mode = 0
+	let g:qpatterns_enable_mappings = 0
+	nmap & <plug>QpatternsInlineFind
+	omap & <plug>QpatternsInlineSelect
+	xmap & <plug>QpatternsInlineSelect
+	nmap é <plug>QpatternsInlineLast
+	omap é <plug>QpatternsInlineLast
+	xmap é <plug>QpatternsInlineLast
+	nmap \ <plug>QpatternsFind
+	xmap \ <plug>QpatternsSelect
+	omap \ <plug>QpatternsSelect
+	set rtp+=/home/io/dev/qpatterns/vim_plugin
+
+
+
+	" Listtools
+
+	let g:listtools_dev_mode = 1
+	let g:listtools_enable_abbr = 1
+
+	cabbr lm LTMatch
+	cabbr lma LTMatchAdd
+	cabbr lq  LTQMatch
+	cabbr lqa  LTQMatchAdd
+
+	set rtp+=/home/io/dev/vim-listtools/
+
+
+
 	" Colorscheme :
 
 	set background=dark
@@ -208,6 +240,8 @@ if $ZV != 'light'
 	" hi MatchParen ctermfg=yellow cterm=bold ctermbg=NONE guifg=yellow gui=bold guibg=NONE
 	" hi Special cterm=bold
 	" hi link LineNr Ignore
+
+
 
 endif " $ZV != 'light'
 
