@@ -4,6 +4,10 @@
 " Séparer une ligne en deux
 noremap go i<cr><esc>
 
+" Insérer une ligne avant / après
+noremap <silent> _O :call append(line('.')-1, '')<cr>
+noremap <silent> _o :call append(line('.'), '')<cr>
+
 " Supprimer tout le contenu d'une ligne
 nnoremap dD 0D
 nnoremap dp ddp
