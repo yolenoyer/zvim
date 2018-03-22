@@ -1,0 +1,89 @@
+priority -50
+
+extends html
+
+
+global !p
+def get_sql_repls(vals):
+    repl_arr = []
+    for v in vals.split(','):
+        vs = v.strip()
+        if vs == '': continue
+        repl_arr.append(':'+vs)
+    return ', '.join(repl_arr)
+
+def get_pdo_array(snip, vals):
+    valsStrip = vals.strip()
+    if valsStrip == '': return
+    
+    snip.rv += 'array('
+    snip >> 1
+    first = True
+    for v in vals.split(','):
+        vs = v.strip()
+        if vs == '': continue
+
+        if first : first = False
+        else : snip.rv += ','
+
+        snip += "'"+vs+"' => ''"
+
+    snip << 1
+    snip += ')'
+
+
+def get_select_pdo_array(snip, t):
+	vars = []
+	for i in range(1,4):
+		vars.extend(re.findall(r':[A-Za-z]*', t[i]))
+	if len(vars) == 0: return
+
+	snip.rv += 'array('
+	snip >> 1
+	first = True
+	for v in vars:
+		if first : first = False
+		else : snip.rv += ','
+		snip += "'{}' => ''".format(v[1:])
+
+	snip << 1
+	snip += ')'
+
+
+endglobal
+
+
+snippet t "" w
+$this->
+endsnippet
+
+snippet [
+$${1}['${2}']${0}
+endsnippet
+
+
+snippet sqli
+$req = $bdd->prepare("INSERT INTO ${1} (${2}) VALUES (`!p snip.rv = get_sql_repls(t[2]) `)");
+$req->execute(`!p get_pdo_array(snip, t[2]) `);
+endsnippet
+
+snippet sqls
+$req = $bdd->prepare("SELECT ${1:*} FROM ${2} WHERE ${3}");
+$req->execute(`!p get_select_pdo_array(snip, t) `);
+endsnippet
+
+snippet pre
+echo '<pre style="font-family:monospace">';
+${VISUAL}${0}
+echo '</pre>';
+endsnippet
+
+snippet pr
+print_r(${1});${0}
+endsnippet
+
+snippet e
+echo "${1}";${0}
+endsnippet
+
+

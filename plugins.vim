@@ -1,4 +1,5 @@
 
+let s:this_dir = fnamemodify(resolve(expand('<sfile>')), ':p:h')
 
 " Vundle :
 filetype off                  " required
@@ -113,7 +114,74 @@ cnoremap kj <ESC>
 
 if $ZV != 'light'
 
-	"'''''''''''''''''''' Plugin 'airblade/vim-gitgutter' ''''''''''
+	"'''''''''''''''''''' Snippets '''''''''''''''''''''
+	" Moteur
+	Plugin 'SirVer/ultisnips'
+	let g:UltiSnipsExpandTrigger = '<tab>'
+	let g:UltiSnipsJumpForwardTrigger = '<tab>'
+	let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+	let g:UltiSnipsListSnippets = '<f1><tab>'
+	let g:UltiSnipsEditSplit = 'vertical'
+	let g:UltiSnipsSnippetsDir = printf('%s/plugins/snippets/UltiSnips', s:this_dir)
+	call _#cabbr('es', 'UltiSnipsEdit')
+
+	" Snippets
+	Plugin 'honza/vim-snippets'
+
+
+
+	"'''''''''''''''''''' Barre de statut (lightline) ''''''''''''''
+	Plugin 'itchyny/lightline.vim'
+	let g:lightline = {
+	\ 'colorscheme': 'yo',
+	\ 'active' : {
+	\     'left': [
+	\         [ 'gitbranch' ],
+	\         [ 'bufnum' ],
+	\         [ 'readonly', 'filename', 'modified' ],
+	\     ],
+	\     'right': [
+	\         [ 'col' ],
+	\         [ 'line' ],
+	\         [ 'fileformat', 'fileencoding', 'percent' ],
+	\     ],
+	\ },
+	\ 'inactive' : {
+	\     'left': [
+	\         [ 'bufnum' ],
+	\         [ 'filename' ],
+	\     ],
+	\     'right': [
+	\         [ 'lineinfo' ],
+	\         [ 'percent' ],
+	\     ],
+	\ },
+	\ 'tabline' : {
+	\     'left': [ [ 'tabs' ] ],
+	\     'right': [ [ 'cwd' ] ],
+	\ },
+	\ 'tab' : {
+	\     'active': [ 'filename', 'modified' ],
+	\     'inactive': [ 'filename', 'modified' ],
+	\ },
+	\ 'component' : {
+	\     'percent' : '%P',
+	\     'line' : '%3l',
+	\     'col' : '%-7(|%c%V|%)',
+	\     'cwd' : '%{getcwd()}',
+	\ },
+	\ 'component_expand' : {
+	\     'gitbranch' : 'fugitive#head',
+	\ },
+	\ 'component_type' : {
+	\     'gitbranch' : 'git',
+	\ },
+	\}
+
+
+
+	"'''''''''''''''''''' Git ''''''''''''''''''''
+	Plugin 'tpope/vim-fugitive'
 	Plugin 'airblade/vim-gitgutter'
 
 

@@ -121,6 +121,10 @@ endif
 
 
 
+" Trouve le répertoire courant réel de ce script:
+let s:this_dir = fnamemodify(resolve(expand('<sfile>')), ':p:h')
+
+
 
 
 " Plugins :
@@ -150,7 +154,6 @@ let g:workingdir_mapleader = "\<f1>"
 
 
 " Plugins externes :
-let s:this_dir = expand('<sfile>:p:h')
 exe printf('source %s/plugins.vim', s:this_dir)
 
 
@@ -191,6 +194,12 @@ if $ZV != 'light'
 
 	" Fonctionnalités diverses, non-essentielles
 	LocalPlugin morefeatures
+
+	" Snippets personnels
+	LocalPlugin snippets
+
+	" Colorscheme perso pour lightline
+	LocalPlugin lightline
 
 
 

@@ -27,7 +27,7 @@ function! sandbox#sandbox(filetype)
 		1d_
 
 		" Cherche le mot-clé de placement automatique du curseur:
-		call _#set_option('ignorecase', v:true)
+		call _#set_temp_option('ignorecase', v:true)
 		let l:found = search('{{cursor}}', 'cw')
 		call _#restore_option('ignorecase')
 		if l:found

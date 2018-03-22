@@ -146,19 +146,48 @@ endf
 
 
 
-"'''''''''''''''''''' function! _#set_option(option_name, value)
-function! _#set_option(option_name, value)
-	let l:var_name = 's:'.a:option_name
-	let {l:var_name} = eval('&'.a:option_name)
+"'''''''''''''''''''' function! s:set_option(option_name, value)
+function! s:set_option(option_name, value)
 	exe printf("let &%s = %s", a:option_name, s:option_string_repr(a:value))
 endf
 
 
 
+"'''''''''''''''''''' function! _#set_temp_option(option_name, value)
+" Définit une option, mais sauvegarde son ancienne valeur auparavant, qu'on peut rappler grâce à la 
+" fonction _#restore_option().
+function! _#set_temp_option(option_name, value)
+	let l:var_name = 's:'.a:option_name
+	let {l:var_name} = eval('&'.a:option_name)
+	call s:set_option(a:option_name, a:value)
+endf
+
+
+
 "'''''''''''''''''''' function! _#restore_option(option_name)
+" Restore une option définie par _#set_temp_option().
 function! _#restore_option(option_name)
 	let l:var_name = 's:'.a:option_name
-	exe printf("let &%s = %s", a:option_name, s:option_string_repr({l:var_name}))
+	call s:set_option(a:option_name, {l:var_name})
+endf
+
+
+
+"'''''''''''''''''''' function! _#toggle_option(option_name, values, ...)
+function! _#toggle_option(option_name, values, ...)
+	let l:current_value = eval('&'.a:option_name)
+	for i in range(len(a:values))
+		let l:val = a:values[i]
+		if l:val == l:current_value
+			let l:new_i = (i + 1) % len(a:values)
+			call s:set_option(a:option_name, a:values[l:new_i])
+			if a:0 > 0 && a:1 == v:true
+				exe printf('set %s?', a:option_name)
+			endif
+			return v:true
+		endif
+	endfor
+	return v:false
 endf
 
 

@@ -1,0 +1,42 @@
+priority -50
+
+snippet jt "jquery $(this)." iw
+$(this).
+endsnippet
+
+snippet last "last array element" iw
+${1}[$1.length-1]${0}
+endsnippet
+
+snippet # "jquery $('#...')" iw
+$('#${1}')${0}
+endsnippet
+
+snippet $ "jquery $(...)" iw
+$(${1})${0}
+endsnippet
+
+snippet itt "" iw
+input[type="text"]
+endsnippet
+
+snippet ith "" iw
+input[type="hidden"]
+endsnippet
+
+snippet ifu "if undefined"
+if (typeof(${1}) === 'undefined')${0}
+endsnippet
+
+snippet tu "type == undefined"
+typeof(${1}) === 'undefined'${0}
+endsnippet
+
+snippet ifd "if defined"
+if (typeof(${1}) !== 'undefined')${0}
+endsnippet
+
+snippet td "type != undefined"
+typeof(${1}) !== 'undefined'${0}
+endsnippet
+
