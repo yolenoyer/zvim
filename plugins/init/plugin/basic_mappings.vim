@@ -25,7 +25,7 @@ nnoremap yp Yp
 "'''''''''''''''''''' Macros
 
 noremap à @a
-noremap <m-:> @:
+noremap m: @:
 
 
 
@@ -140,6 +140,12 @@ nnoremap <c-q><c-q> :qa<cr>
 nnoremap <c-q><c-w> :wqa<cr>
 nnoremap <c-w><c-q> :wqa<cr>
 
+
+
+"'''''''''''''''''''' Désactivation de l'aide avec <F1>
+
+map <f1> <nop>
+imap <f1> <lt>F1>
 
 
 

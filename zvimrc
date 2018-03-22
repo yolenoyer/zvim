@@ -66,6 +66,8 @@ set cinoptions=l1L0g0(0Ws
 " Indent :
 
 set indk=o,O            " indentkeys : caractères pouvant causer une réindentation auto
+let g:vim_indent_cont = 0
+                        " pour l'indentation auto des antislash, lors de l'édition d'un fichier .vim
 set si                  " indent auto en c
 set ai
 
