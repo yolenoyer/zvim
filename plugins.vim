@@ -236,6 +236,9 @@ if $ZV != 'light'
 	" A conserver (git modifié avec une liste de colorschemes choisis):
 	" Plugin 'felixhummel/setcolors.vim'
 
+
+	"'''''''''''''''''''' Filetypes addons
+	Plugin 'lumiliet/vim-twig'
 endif
 
 
