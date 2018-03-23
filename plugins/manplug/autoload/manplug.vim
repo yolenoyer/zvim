@@ -91,7 +91,8 @@ function! manplug#get_plugin_list(...)
 	if a:0 > 0
 		" Pour la complétion des commandes: filtre seulement les plugins
 		" commençant par la chaine indiquée en 1er argument:
-		call _#filter_completion(l:plugins, a:1)
+		call _#filter_completion(l:plugins, a:1, v:true)
+			" v:true = ajoute un espace lorsqu'il n'y a qu'un choix
 	endif
 	return l:plugins
 endf
@@ -134,7 +135,7 @@ function! manplug#get_plugin_scripts(...)
 	if l:dir == v:none
 		return v:none
 	endif
-	
+
 	" On détermine le type de filtre suivant les paramètres donnés:
 	if l:filter != v:none
 		let l:pattern_filter = !empty(l:filter) && l:filter[0] == '/'
@@ -143,22 +144,22 @@ function! manplug#get_plugin_scripts(...)
 		let l:pattern_filter = v:false
 		let l:subdir_filter = v:false
 	endif
-	
+
 	if l:subdir_filter
 		" Cherche seulement dans un sous-répertoire éventuel:
 		let l:dir = printf('%s/%s', l:dir, l:filter)
 	endif
-	
+
 	" Cherche les fichiers:
 	let l:glob = printf('%s/**/*.vim', l:dir)
 	let l:scripts = glob(l:glob, 0, 1)
-	
+
 	if l:pattern_filter
 		" Filtre les noms de script par un pattern:
 		let l:pattern = strpart(l:filter, 1)
 		call filter(l:scripts, { i, f -> match(f, l:pattern) != -1 })
 	endif
-	
+
 	return l:scripts
 endf
 
@@ -181,7 +182,8 @@ function! manplug#complete_edit_command(lead, line, pos)
 		endif
 		let l:script_dirs = manplug#get_plugin_script_dirs(l:args[1])
 		if l:lead != v:none
-			call _#filter_completion(l:script_dirs, l:lead)
+			call _#filter_completion(l:script_dirs, l:lead, v:true)
+				" v:true = ajoute un espace lorsqu'il n'y a qu'un choix
 		endif
 		return l:script_dirs
 	endif

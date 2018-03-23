@@ -82,11 +82,12 @@ endf
 
 
 
-"'''''''''''''''''''' function! _#filter_completion(completion_list, lead)
-function! _#filter_completion(completion_list, lead)
+"'''''''''''''''''''' function! _#filter_completion(completion_list, lead, ...)
+" @param a:1  Si =1, alors ajoute un espace lorsqu'il n'y a qu'un choix
+function! _#filter_completion(completion_list, lead, ...)
 	let l:len = strlen(a:lead)
 	call filter(a:completion_list, { i, f -> strpart(f, 0, l:len) == a:lead })
-	if len(a:completion_list) == 1
+	if len(a:completion_list) == 1 && a:0 > 0 && a:1
 		let a:completion_list[0] = a:completion_list[0] . ' '
 	endif
 	return a:completion_list
@@ -154,7 +155,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#set_temp_option(option_name, value)
-" Définit une option, mais sauvegarde son ancienne valeur auparavant, qu'on peut rappler grâce à la 
+" Définit une option, mais sauvegarde son ancienne valeur auparavant, qu'on peut rappler grâce à la
 " fonction _#restore_option().
 function! _#set_temp_option(option_name, value)
 	let l:var_name = 's:'.a:option_name

@@ -18,6 +18,12 @@ command! -nargs=1 -complete=customlist,pysv#complete_cv
 command! -nargs=1 -complete=customlist,pysv#complete_sv
  \	Sv call pysv#sv(<q-args>)
 
+command! -nargs=1 -complete=customlist,pysv#complete_sve
+ \	Sve call pysv#sve(<q-args>)
+
+command! -nargs=1 -complete=customlist,pysv#complete_sve
+ \	Svte call pysv#sve(<q-args>, v:true)
+
 command! -nargs=1 -complete=customlist,pysv#complete_sv
  \	Lsv call pysv#sv(<q-args>, 'l')
 
@@ -26,9 +32,11 @@ command! -nargs=1 -complete=customlist,pysv#complete_sv
 " Abbréviations :
 
 call _#cabbr({
- \	'cv' : 'Cv',
- \	'lcv' : 'Lcv',
- \	'sv' : 'Sv',
- \	'lsv' : 'Lsv',
+ \	'cv'   : 'Cv',
+ \	'lcv'  : 'Lcv',
+ \	'sv'   : 'Sv',
+ \	'sve'  : 'Sve',
+ \	'svte' : 'Svte',
+ \	'lsv'  : 'Lsv',
  \ })
 

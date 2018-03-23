@@ -22,7 +22,7 @@ function! pysv#get_path(is_global, key)
 	if !has_key(l:shortcuts, a:key)
 		throw printf("Le raccourci '%s' n'existe pas", a:key)
 	endif
-	
+
 	let l:path = l:shortcuts[a:key]
 	if !isdirectory(l:path)
 		throw printf("Le chemin '%s' n'est pas un répertoire", l:path)
@@ -41,7 +41,7 @@ function! s:common_sv(is_global, key, ...)
 		call _#error('pysv', v:exception)
 	endtry
 
-	let l:command = a:0 >= 1 && a:1 == 'l' ? 'lcd' : 'cd'
+	let l:command = a:0 >= 1 && a:1 ? 'lcd' : 'cd'
 	let l:path = escape(l:path, ' \')
 	let l:command = join([ l:command, l:path ], ' ')
 
@@ -51,8 +51,9 @@ endf
 
 
 
-"'''''''''''''''''''' function! s:common_complete(is_global, lead)
-function! s:common_complete(is_global, lead)
+"'''''''''''''''''''' function! s:common_complete(is_global, lead, ...)
+" @param a:1  Si =v:true, aloars ajoute
+function! s:common_complete(is_global, lead, ...)
 	try
 		let l:shortcuts = pysv#get_shortcuts(a:is_global)
 	catch
@@ -64,14 +65,72 @@ endf
 
 
 
+"'''''''''''''''''''' function! pysv#parse_path()
+function! pysv#parse_path(path)
+	let l:infos = {
+		\ 'key': v:none,
+		\ 'root_path': v:none,
+		\ 'relative_path': v:none,
+		\ 'whole_path': v:none,
+		\ 'files_with_same_prefix': v:none,
+		\ 'relative_path_start': v:none,
+	\ }
+
+	let l:first_slash = stridx(a:path, '/')
+	if l:first_slash != -1
+		let l:infos.key = strpart(a:path, 0, l:first_slash)
+		let l:infos.root_path = pysv#get_path(0, l:infos.key)
+		let l:infos.relative_path = strpart(a:path, l:first_slash + 1)
+		let l:infos.whole_path = printf('%s/%s', l:infos.root_path, l:infos.relative_path)
+		let l:infos.files_with_same_prefix = glob(printf('%s*', l:infos.whole_path), 0, 1)
+		let l:infos.relative_path_start = len(l:infos.root_path) + 1
+	else
+		let l:infos.key = a:path
+	endif
+
+	return l:infos
+endf
+
+
+
 "'''''''''''''''''''' function! pysv#sv(key, ...)
 function! pysv#sv(key, ...)
 	call call('s:common_sv', [ v:false, a:key ] + a:000)
 endf
 
+
+
+"''''''''''''''''''''function! pysv#sve(sv_path, ...)
+function! pysv#sve(sv_path, ...)
+	let l:edit_command = a:0 > 0 && a:1 ? 'tabe' : 'e'
+	let l:infos = pysv#parse_path(a:sv_path)
+	exe l:edit_command fnameescape(l:infos.whole_path)
+endf
+
+
+
 "'''''''''''''''''''' function! pysv#complete_sv(lead, line, pos)
 function! pysv#complete_sv(lead, line, pos)
 	return s:common_complete(v:false, a:lead)
+endf
+
+"'''''''''''''''''''' function! pysv#complete_sve(lead, line, pos)
+function! pysv#complete_sve(lead, line, pos)
+	try
+		let l:infos = pysv#parse_path(a:lead)
+	catch
+		return []
+	endtry
+
+	if l:infos.root_path != v:none
+		return map(l:infos.files_with_same_prefix, { index, val ->
+			\ printf('%s/%s', l:infos.key, strpart(val, l:infos.relative_path_start))
+		\ })
+	else
+		return map(s:common_complete(v:false, a:lead), { index, val ->
+			\ printf('%s/', (val))
+		\ })
+	endif
 endf
 
 
