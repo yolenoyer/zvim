@@ -180,9 +180,15 @@ if $ZV != 'light'
 
 
 
-	"'''''''''''''''''''' Git ''''''''''''''''''''
+	"'''''''''''''''''''' Fugitive ''''''''''''''''''''
 	Plugin 'tpope/vim-fugitive'
+
+	"'''''''''''''''''''' GitGutter ''''''''''''''''''''
 	Plugin 'airblade/vim-gitgutter'
+	let g:gitgutter_map_keys = 0
+	nmap <space>hs <Plug>GitGutterStageHunk
+	nmap <space>hu <Plug>GitGutterUndoHunk
+	nmap <space>hp <Plug>GitGutterPreviewHunk
 
 
 
@@ -202,6 +208,7 @@ if $ZV != 'light'
 
 	"'''''''''''''''''''' Plugin vim-quickrun ''''''''''''''''''''
 	Plugin 'thinca/vim-quickrun'
+	let g:quickrun_no_default_key_mappings = 1
 	noremap <silent> <space>r :QuickRun<cr>
 
 

@@ -234,6 +234,7 @@ if $ZV != 'light'
 
 	let g:listtools_dev_mode = 1
 	let g:listtools_enable_abbr = 1
+	let g:listtools_leader = '<space>l'
 
 	cabbr lm LTMatch
 	cabbr lma LTMatchAdd
