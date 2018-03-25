@@ -175,6 +175,12 @@ if $ZV != 'light'
 	LocalPlugin tablemode
 	imap <f1>t <plug>TablemodeToggle
 
+	" Recherche via un motion:
+	LocalPlugin motionsearch
+	nmap z/ <plug>MotionsearchSearchNomove
+	vmap z/ <plug>MotionsearchSearchNomove
+	nmap g/ <plug>MotionsearchSearch
+
 	" Gestion des plugins persos
 	LocalPlugin manplug
 
@@ -196,7 +202,7 @@ if $ZV != 'light'
 	LocalPlugin callterm
 	let g:callterm_mapleader = "\<f2>"
 
-	" Fonctionnalités diverses, non-essentielles
+	" Fonctionnalités diverses mais utiles
 	LocalPlugin morefeatures
 
 	" Snippets personnels
