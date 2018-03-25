@@ -171,6 +171,10 @@ if $ZV != 'light'
 	LocalPlugin returnkey
 	map <f1><cr> <plug>ReturnkeyToggleMode
 
+	" Table mode (<cr> revient toujours à la même colonne de départ)
+	LocalPlugin tablemode
+	imap <f1>t <plug>TablemodeToggle
+
 	" Gestion des plugins persos
 	LocalPlugin manplug
 
