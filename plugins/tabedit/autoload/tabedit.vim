@@ -1,6 +1,11 @@
 
-"''''''''''''''''''''     function! tabedit#tabe(flags, ...)
+"'''''''''''''''''''' function! tabedit#tabe(flags, ...)
 function! tabedit#tabe(flags, ...)
+	if !a:0
+		e
+		return
+	endif
+
 	let l:opts = []
 	let l:files = []
 	for l:arg in a:000
@@ -46,18 +51,30 @@ endf
 
 
 
-"''''''''''''''''''''     function! tabedit#tabn(...)
+"'''''''''''''''''''' function! tabedit#tabn(...)
 function! tabedit#tabn(...)
+	if a:0 == 0
+		tabnew
+		return
+	endif
 	for l:arg in a:000
-		let l:files = expand(l:arg, 0, 1)
-		for l:file in l:files
-			exe "tabe ".l:file
-			w | e
-
-			if &ft == 'vim'
-				AutoSource
-			endif
-		endfor
+		if stridx('~./', l:arg[0]) != -1
+			" Si l'argument décrit un nom de fichier (à créer):
+			let l:files = expand(l:arg, 0, 1)
+			for l:file in l:files
+				exe "tabe ".l:file
+				w | e
+				if &ft == 'vim'
+					AutoSource
+				endif
+			endfor
+		else
+			" Sinon on considère l'argument comme un type de fichier:
+			tabnew
+			exe 'setf' l:arg
+		endif
 	endfor
 endf
+
+
 

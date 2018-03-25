@@ -14,8 +14,16 @@ function! manplug#edit(plugname, ...)
 		call _#error('manplug', 'Aucun fichier trouvé')
 		return
 	endif
+
+	let l:first = 1
 	for l:script in l:scripts
-		exe 'tabe' l:script
+		if l:first
+			let l:command = _#is_new_buffer() ? 'e' : 'tabe'
+			exe l:command l:script
+			let l:first = 0
+		else
+			exe 'tabe' l:script
+		endif
 	endfor
 endf
 
