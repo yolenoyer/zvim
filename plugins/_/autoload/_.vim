@@ -227,3 +227,25 @@ function! _#restore_mapleader()
 	unlet s:old_mapleader
 endf
 
+
+
+"'''''''''''''''''''' function! _#is_empty_buffer(...)
+function! _#is_empty_buffer(...)
+	let l:buffer = a:0 > 0 ? a:1 : '%'
+	let l:two_lines = getbufline(l:buffer, 1, 2)
+	return len(l:two_lines) == 1 && empty(l:two_lines[0])
+endf
+
+
+
+"'''''''''''''''''''' function! _#is_new_buffer(...)
+function! _#is_new_buffer(...)
+	let l:buffer = a:0 > 0 ? a:1 : '%'
+	return
+		\ empty(bufname(l:buffer))
+		\ && !getbufvar(l:buffer, '&modified')
+		\ && _#is_empty_buffer(l:buffer)
+endf
+
+
+
