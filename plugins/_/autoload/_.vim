@@ -46,16 +46,6 @@ endf
 
 
 
-function! s:cabbr(alias, replace)
-	if exists('*CmdAlias')
-		call CmdAlias(a:alias, a:replace)
-	else
-		exe 'cabbr' a:alias a:replace
-	endif
-endf
-
-
-
 "'''''''''''''''''''' function! _#cabbr(...)
 function! _#cabbr(...)
 	if a:0 == 2 && type(a:1)==v:t_string && type(a:2)==v:t_string
@@ -65,6 +55,14 @@ function! _#cabbr(...)
 			let l:replace = a:1[l:alias]
 			call s:cabbr(l:alias, l:replace)
 		endfor
+	endif
+endf
+
+function! s:cabbr(alias, replace)
+	if exists('*CmdAlias')
+		call CmdAlias(a:alias, a:replace)
+	else
+		exe 'cabbr' a:alias a:replace
 	endif
 endf
 
@@ -117,7 +115,7 @@ endf
 
 
 
-"''''''''''''''''''''     function! _#get_all_matches(str, pat)
+"'''''''''''''''''''' function! _#get_all_matches(str, pat)
 function! _#get_all_matches(expr, pat)
 	let l:matches = []
 	let l:count = 1

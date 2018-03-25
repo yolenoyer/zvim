@@ -250,7 +250,7 @@ if $ZV != 'light'
 	set background=dark
 	colorscheme gruvbox
 	hi Normal ctermbg=232 guibg=black
-	hi CursorLine ctermbg=234 guibg=#080808 gui=NONE
+	hi CursorLine ctermbg=234 guibg=#202020 gui=NONE
 	hi SignColumn ctermbg=234
 	hi Visual ctermbg=238 cterm=NONE term=NONE gui=NONE guibg=#303030
 	hi Search ctermbg=240 ctermfg=yellow cterm=bold term=bold
