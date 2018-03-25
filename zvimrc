@@ -182,7 +182,7 @@ if $ZV != 'light'
 	nmap g/ <plug>MotionsearchSearch
 
 	" Gestion des plugins persos
-	LocalPlugin manplug
+	LocalPlugin plugman
 
 	" Fonctions manipulant les chemins des fichiers en cours d'édition
 	LocalPlugin bufpath

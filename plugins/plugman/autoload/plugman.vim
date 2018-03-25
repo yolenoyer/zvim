@@ -1,17 +1,17 @@
 
-"'''''''''''''''''''' function! manplug#edit(plugname, ...)
-function! manplug#edit(plugname, ...)
+"'''''''''''''''''''' function! plugman#edit(plugname, ...)
+function! plugman#edit(plugname, ...)
 	if a:0 == 0
-		let l:scripts = manplug#get_plugin_scripts(a:plugname)
+		let l:scripts = plugman#get_plugin_scripts(a:plugname)
 	else
-		let l:scripts = manplug#get_plugin_scripts(a:plugname, a:1)
+		let l:scripts = plugman#get_plugin_scripts(a:plugname, a:1)
 	endif
 	if type(l:scripts) == v:t_none
-		call _#error('manplug', printf('Plugin "%s" non-trouvé', a:plugname))
+		call _#error('plugman', printf('Plugin "%s" non-trouvé', a:plugname))
 		return
 	endif
 	if empty(l:scripts)
-		call _#error('manplug', 'Aucun fichier trouvé')
+		call _#error('plugman', 'Aucun fichier trouvé')
 		return
 	endif
 
@@ -29,11 +29,11 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#list_plugin(plugname)
-function! manplug#list_plugin(plugname)
-	let l:scripts = manplug#get_plugin_scripts(a:plugname)
+"'''''''''''''''''''' function! plugman#list_plugin(plugname)
+function! plugman#list_plugin(plugname)
+	let l:scripts = plugman#get_plugin_scripts(a:plugname)
 	if type(l:scripts) == v:t_none
-		call _#error('manplug', printf('Plugin "%s" non-trouvé', a:plugname))
+		call _#error('plugman', printf('Plugin "%s" non-trouvé', a:plugname))
 		return
 	endif
 	for l:script in l:scripts
@@ -43,12 +43,12 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#list_plugins()
-function! manplug#list_plugins()
-	let l:plugins = manplug#get_plugin_list()
+"'''''''''''''''''''' function! plugman#list_plugins()
+function! plugman#list_plugins()
+	let l:plugins = plugman#get_plugin_list()
 	for l:plugin in l:plugins
 		echo ''
-		let l:script_dirs = manplug#get_plugin_script_dirs(l:plugin)
+		let l:script_dirs = plugman#get_plugin_script_dirs(l:plugin)
 		echohl Statement
 		echon l:plugin
 		echohl Normal
@@ -70,20 +70,20 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#list(...)
-function! manplug#list(...)
+"'''''''''''''''''''' function! plugman#list(...)
+function! plugman#list(...)
 	if a:0 == 0
-		call manplug#list_plugins()
+		call plugman#list_plugins()
 	else
-		call manplug#list_plugin(a:1)
+		call plugman#list_plugin(a:1)
 	endif
 endf
 
 
 
-"'''''''''''''''''''' function! manplug#get_plugin_dir_list()
-function! manplug#get_plugin_dir_list()
-	let l:glob = g:manplug_plugindir . '/*'
+"'''''''''''''''''''' function! plugman#get_plugin_dir_list()
+function! plugman#get_plugin_dir_list()
+	let l:glob = g:plugman_plugindir . '/*'
 	let l:files = glob(l:glob, 0, 1)
 	call filter(l:files, { i, f -> isdirectory(f) })
 	return l:files
@@ -91,9 +91,9 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#get_plugin_list(...)
-function! manplug#get_plugin_list(...)
-	let l:dirs = manplug#get_plugin_dir_list()
+"'''''''''''''''''''' function! plugman#get_plugin_list(...)
+function! plugman#get_plugin_list(...)
+	let l:dirs = plugman#get_plugin_dir_list()
 	call map(l:dirs, { i, f -> fnamemodify(f, ':t') })
 	let l:plugins = l:dirs
 	if a:0 > 0
@@ -107,12 +107,12 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#get_plugin_dir(plugname)
-function! manplug#get_plugin_dir(plugname)
+"'''''''''''''''''''' function! plugman#get_plugin_dir(plugname)
+function! plugman#get_plugin_dir(plugname)
 	if a:plugname == v:none
-		return g:manplug_plugindir
+		return g:plugman_plugindir
 	endif
-	let l:dirs = manplug#get_plugin_dir_list()
+	let l:dirs = plugman#get_plugin_dir_list()
 	for l:dir in l:dirs
 		let l:this_plugname = fnamemodify(l:dir, ':t')
 		if l:this_plugname == a:plugname
@@ -124,8 +124,8 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#get_plugin_scripts(...)
-function! manplug#get_plugin_scripts(...)
+"'''''''''''''''''''' function! plugman#get_plugin_scripts(...)
+function! plugman#get_plugin_scripts(...)
 	if a:0 == 0 || a:1 == '*'
 		let l:plugname = v:none
 		let l:filter = v:none
@@ -139,7 +139,7 @@ function! manplug#get_plugin_scripts(...)
 		endif
 	endif
 
-	let l:dir = manplug#get_plugin_dir(l:plugname)
+	let l:dir = plugman#get_plugin_dir(l:plugname)
 	if l:dir == v:none
 		return v:none
 	endif
@@ -173,8 +173,8 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#complete_edit_command(lead, line, pos)
-function! manplug#complete_edit_command(lead, line, pos)
+"'''''''''''''''''''' function! plugman#complete_edit_command(lead, line, pos)
+function! plugman#complete_edit_command(lead, line, pos)
 	let l:line = strpart(a:line, 0, a:pos)
 	let l:args = split(l:line)
 	let l:cur_arg = len(l:args)-1
@@ -182,13 +182,13 @@ function! manplug#complete_edit_command(lead, line, pos)
 		let l:cur_arg += 1
 	endif
 	if l:cur_arg == 1
-		return manplug#get_plugin_list(a:lead)
+		return plugman#get_plugin_list(a:lead)
 	elseif l:cur_arg == 2
 		let l:lead = len(l:args) >= 3 ? l:args[2] : v:none
 		if l:lead != v:none && l:lead[0] == '/'
 			return []
 		endif
-		let l:script_dirs = manplug#get_plugin_script_dirs(l:args[1])
+		let l:script_dirs = plugman#get_plugin_script_dirs(l:args[1])
 		if l:lead != v:none
 			call _#filter_completion(l:script_dirs, l:lead, v:true)
 				" v:true = ajoute un espace lorsqu'il n'y a qu'un choix
@@ -200,20 +200,20 @@ endf
 
 
 
-"'''''''''''''''''''' function! manplug#complete_list_command(lead, line, pos)
-function! manplug#complete_list_command(lead, line, pos)
-	return manplug#get_plugin_list(a:lead)
+"'''''''''''''''''''' function! plugman#complete_list_command(lead, line, pos)
+function! plugman#complete_list_command(lead, line, pos)
+	return plugman#get_plugin_list(a:lead)
 endf
 
 
 
-"'''''''''''''''''''' function! manplug#get_plugin_script_dirs(plugname)
-function! manplug#get_plugin_script_dirs(plugname)
-	let l:dir = manplug#get_plugin_dir(a:plugname)
+"'''''''''''''''''''' function! plugman#get_plugin_script_dirs(plugname)
+function! plugman#get_plugin_script_dirs(plugname)
+	let l:dir = plugman#get_plugin_dir(a:plugname)
 	if l:dir == v:none
 		return []
 	endif
-	let l:scripts = manplug#get_plugin_scripts(a:plugname)
+	let l:scripts = plugman#get_plugin_scripts(a:plugname)
 	let l:base_dirs = []
 	for l:script in l:scripts
 		let l:rel_path = strpart(l:script, len(l:dir) + 1)
