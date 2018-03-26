@@ -56,9 +56,26 @@ noremap <space>, f<space>,
 
 
 
+
 "'''''''''''''''''''' Buffers
 
 noremap __ <c-^>
+
+
+
+
+"'''''''''''''''''''' Arguments
+
+noremap <silent> <f5> :previous<cr>
+noremap <silent> <f6> :next<cr>
+
+
+
+
+"'''''''''''''''''''' Quickfix
+
+noremap <silent> <f7> :cprevious<cr>
+noremap <silent> <f8> :cnext<cr>
 
 
 
