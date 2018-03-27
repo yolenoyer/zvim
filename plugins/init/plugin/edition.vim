@@ -19,7 +19,7 @@ nnoremap dP ddkP
 "'''''''''''''''''''' Remplacements de texte
 
 " Supprime tous les espaces en fin de ligne dans le buffer en cours:
-nnoremap <silent> _<space> :%s/\s\+$//
+nnoremap <silent> _<space> :%s/\s\+$//<cr>
 
 
 
