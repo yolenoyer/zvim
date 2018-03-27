@@ -159,6 +159,7 @@ nnoremap <c-w><c-q> :wqa<cr>
 
 
 
+
 "'''''''''''''''''''' Désactivation de l'aide avec <F1>
 
 map <f1> <nop>
@@ -166,8 +167,7 @@ imap <f1> <lt>F1>
 
 
 
+
 "'''''''''''''''''''' Toggle d'options globales
 noremap <silent> <F1>m :call _#toggle_option('mouse', ['a', ''], v:true)<cr>
-
-
 

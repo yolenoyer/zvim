@@ -1,4 +1,9 @@
 
+" Permet de gérer les plugins persos (listing, commande d'édition de fichier avec complétion
+" avancée).
+
+
+
 if (!exists('g:plugman_plugindir'))
 	let g:plugman_plugindir = '~/scripts/zvim/plugins'
 endif

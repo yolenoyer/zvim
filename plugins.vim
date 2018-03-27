@@ -13,6 +13,9 @@ call vundle#begin()
 "'''''''''''''''''''' Plugin Vundle.vim ''''''''''''''''''''
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+call _#cabbr({
+	\ 'pi' : 'PluginInstall'
+\})
 
 
 

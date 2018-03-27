@@ -1,4 +1,9 @@
 
+" Permet d'appeler un terminal ou un gestionnaire de fichiers dont le chemin de départ est en
+" rapport avec le fichier actuel, ou le répertoire courant.
+
+
+
 if !has('gui_running')
 	finish
 endif
@@ -24,9 +29,13 @@ call extend(g:callterm_terminals, {
 
 " Plug mappings :
 
+" Terminal avec le répertoire courant:
 nnoremap <silent> <plug>CalltermTermCurrent :call callterm#call_term("#current#")<cr>
+" Terminal avec le répertoire contenant le fichier actuel:
 nnoremap <silent> <plug>CalltermTermFile :call callterm#call_term("#file#")<cr>
+" Gestionnaire de fichiers avec le répertoire courant:
 nnoremap <silent> <plug>CalltermBrowserCurrent :call callterm#call_file_browser("#current#")<cr>
+" Gestionnaire de fichiers avec le répertoire contenant le fichier actuel:
 nnoremap <silent> <plug>CalltermBrowserFile :call callterm#call_file_browser("#file#")<cr>
 
 

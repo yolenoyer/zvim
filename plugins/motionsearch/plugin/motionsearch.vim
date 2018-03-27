@@ -1,4 +1,6 @@
 
+" Permet de chercher le texte correspondant au motion précisé
+
 " Mappings :
 nnoremap <silent> <plug>MotionsearchSearch :call motionsearch#set_opfunc()<cr>g@
 nnoremap <silent> <plug>MotionsearchSearchNomove :call motionsearch#set_opfunc_nomove()<cr>g@
