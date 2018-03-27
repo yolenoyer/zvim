@@ -181,6 +181,12 @@ if $ZV != 'light'
 	vmap z/ <plug>MotionsearchSearchNomove
 	nmap g/ <plug>MotionsearchSearch
 
+	" Remplacement rapide du mot sous le curseur, ou de la recherche courante:
+	LocalPlugin replacematch
+	map _rr <plug>ReplacematchCurrent
+	map _rw <plug>ReplacematchWholeWord
+	map _rW <plug>ReplacematchWord
+
 	" Gestion des plugins persos
 	LocalPlugin plugman
 
