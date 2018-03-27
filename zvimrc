@@ -49,7 +49,7 @@ let &titlestring = '%f   |   %{getcwd()}'
 
 set ts=4                " tabstop : nombre de caractères d'une tabulation
 set sw=4                " shiftwidth : nombre de caractères pour l'indentation automatique
-set fo=tcqrow           " formatoptions : commentaires c++ assistés, retour à la ligne
+set fo=tcqro            " formatoptions : commentaires c++ assistés, retour à la ligne
                         " automatique...
 set fo+=j               " la commande j peut joindre les commentaires intelligemment
 set tw=100              " textwidth : largeur texte max
