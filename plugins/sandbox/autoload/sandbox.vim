@@ -1,5 +1,6 @@
 
 "'''''''''''''''''''' function! sandbox#find_template(filetype)
+" Cherche un fichier template pour le type de fichier donné.
 function! sandbox#find_template(filetype)
 	let l:file_glob = printf('%s/%s.*', g:sandbox_templates_dir, a:filetype)
 	let l:files = glob(l:file_glob, 0, 1)
@@ -8,7 +9,9 @@ endf
 
 
 
-"''''''''''''''''''''     function! sandbox#sandbox(filetype)
+"'''''''''''''''''''' function! sandbox#sandbox(filetype)
+" Ouvre un nouveau buffer d'un certain type, éventuellement rempli avec le contenu d'un template
+" associé.
 function! sandbox#sandbox(filetype)
 	" Création d'un nouveau buffer (mode nowrite = brouillon):
 	tabnew

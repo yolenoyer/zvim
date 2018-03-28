@@ -1,4 +1,6 @@
 
+"'''''''''''''''''''' function! init#get_motions_chars(mode)
+" Utile pour le motion `I?`
 function! init#get_motions_chars(mode)
 	echo "In:"
 	let l:c = getchar() | redraw

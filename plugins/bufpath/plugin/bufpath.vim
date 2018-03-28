@@ -1,4 +1,7 @@
 
+" Permet d'insérer / d'utiliser rapidement des chemins relatifs au buffer courant.
+
+
 "'''''''''''''''''''' function! FP(...)
 " Renvoie le chemin complet du buffer courant ou celui donné en paramètre.
 function! FP(...)

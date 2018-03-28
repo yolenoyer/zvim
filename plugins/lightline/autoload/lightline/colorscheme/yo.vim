@@ -1,4 +1,7 @@
 
+" Colorscheme personnalisé pour le plugin lightline
+
+
 let s:base03 = [ '#151513', 233 ]
 let s:base02 = [ '#30302c ', 236 ]
 let s:base01 = [ '#4e4e43', 239 ]

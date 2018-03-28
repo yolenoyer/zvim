@@ -1,4 +1,8 @@
 
+" En mode insertion, permet d'activer un mode où le curseur revient toujours à la même colonne en
+" appuyant sur <cr>.
+
+
 let s:is_active = v:false
 let s:in_cr = v:false
 

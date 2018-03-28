@@ -1,5 +1,9 @@
 
+" Ajoute des fonctionnalités importantes mais non-essentielles.
+
+
 "'''''''''''''''''''' AutoSource
+" Installe une auto-commande qui source le fichier vim actuel à chaque sauvegarde.
 
 command! -bang AutoSource call s:auto_source('<bang>')
 
@@ -21,6 +25,7 @@ endf
 
 
 "'''''''''''''''''''' SourceThis, SourceThisAlt
+" Source la ligne courante, ou le range défini.
 
 command! -range SourceThis call s:source_this(<line1>, <line2>)
 command! -range SourceThisAlt call s:source_this_in_alt_buffer(<line1>, <line2>)

@@ -1,4 +1,8 @@
 
+" Permet d'ouvrir rapidement un buffer pour un type de fichier particulier, éventuellement complété
+" par le contenu d'un template (associé à ce type de fichier)
+
+
 " Configuration :
 
 call _#let_default('g:sandbox_templates_dir', '~/info/templates/sandbox')

@@ -1,4 +1,7 @@
 
+" Permet d'afficher un buffer contenant des raccourcis vers des fichiers couramment utilisés.
+
+
 if exists("g:loaded_usualfiles") || &cp
 	finish
 endif

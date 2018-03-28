@@ -1,5 +1,11 @@
 
 "'''''''''''''''''''' function! tabedit#tabe(flags, ...)
+" Wrapper pour la commande :edit et :tabedit, permettant l'ajout de fichiers multiples, en
+" autorisant les patterns glob.
+" Les options '+...' des commandes :edit / :tabedit sont autorisés.
+" Flags:
+"  i : insère le tab avant le tab courant au lieu d'après
+"  e : le premier fichier est édité dans le tab courant
 function! tabedit#tabe(flags, ...)
 	if !a:0
 		e
@@ -52,6 +58,10 @@ endf
 
 
 "'''''''''''''''''''' function! tabedit#tabn(...)
+" Crée un nouveau buffer.
+" Si a:1 commence par '.', '/' ou '~', crée un nouveau fichier portant ce nom, en définissant le bon
+" filetyp.
+" Sinon, a:1 représente le filetype à définir pour le nouveau fichier.
 function! tabedit#tabn(...)
 	if a:0 == 0
 		tabnew

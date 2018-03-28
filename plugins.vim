@@ -1,4 +1,7 @@
 
+" Initialisation des plugins externes, gérés par Vundle.
+
+
 let s:this_dir = fnamemodify(resolve(expand('<sfile>')), ':p:h')
 
 " Vundle :

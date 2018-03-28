@@ -1,4 +1,7 @@
 
+" Ajoute les commandes :Cv, :Lcv, :Sv, :Sve, :Svte, :Lsv
+
+
 " Configuration :
 
 call _#let_default('g:pysv_svinfo_global', '~/.svinfo.global')

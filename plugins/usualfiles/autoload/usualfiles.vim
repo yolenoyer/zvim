@@ -2,6 +2,20 @@
 let s:current_script = expand('<sfile>')
 
 
+"'''''''''''''''''''' function! usualfiles#open()
+function! usualfiles#open()
+	call s:open(v:false)
+endf
+
+
+
+"'''''''''''''''''''' function! usualfiles#tabOpen()
+function! usualfiles#tabOpen()
+	call s:open(v:true)
+endf
+
+
+
 "'''''''''''''''''''' function! s:get_usualfiles_file()
 function! s:get_usualfiles_file()
 	return expand(g:usualfiles_file)
@@ -177,19 +191,5 @@ function! s:open(tab)
 	catch
 		call _#error('usualfiles', v:exception)
 	endtry
-endf
-
-
-
-"'''''''''''''''''''' function! usualfiles#open()
-function! usualfiles#open()
-	call s:open(v:false)
-endf
-
-
-
-"'''''''''''''''''''' function! usualfiles#tabOpen()
-function! usualfiles#tabOpen()
-	call s:open(v:true)
 endf
 

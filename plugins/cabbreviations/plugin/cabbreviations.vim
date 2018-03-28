@@ -1,4 +1,7 @@
 
+" Ajoute les alias de commandes usuelles.
+
+
 let g:aliases = {
 \	'te' : 'tabe',
 \	'tn' : 'tabnew',

@@ -1,4 +1,7 @@
 
+" Augmente les fonctionnalités des commandes :e, :tabe, :tabnew ...
+
+
 " Commandes :
 
 command! -nargs=+ -complete=file Tabi call tabedit#tabe('i', <f-args>)

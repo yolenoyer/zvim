@@ -1,6 +1,12 @@
 
 
 "'''''''''''''''''''' function! s:error(...)
+" Affiche un message d'erreur.
+" Avec un seul paramètre:
+"   a:1 est le message à afficher
+" Avec deux paramètres:
+"   a:1 est le nom du plugin concerné
+"   a:2 est le message à afficher
 function! _#error(...)
 	if a:0 == 1
 		echoerr a:1
@@ -12,6 +18,11 @@ endf
 
 
 "'''''''''''''''''''' function! _#system(...)
+" Exécute une commande système, et renvoie sa sortie.
+" Chaque paramètre de la fonction peut être
+"   - une chaine, éventuellement un nombre (argument seul)
+"   - un tableau de chaines (ou nombres) (arguments multiples extraits de leur tableau)
+" @return string
 function! _#system(...)
 	let l:command = []
 	for l:arg in a:000
@@ -31,6 +42,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#let_default(var_name, default_val)
+" Définit une valriable uniquement si elle n'existe pas déjà
 function! _#let_default(var_name, default_val)
 	if (!exists(a:var_name))
 		let {a:var_name} = a:default_val
@@ -40,6 +52,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#exists_eq(var, val)
+" Renvoie 1 si une variable existe et qu'elle égale à la valeur donnée
 function! _#exists_eq(var, val)
 	return exists(a:var) && {a:var} == a:val
 endf
@@ -47,6 +60,13 @@ endf
 
 
 "'''''''''''''''''''' function! _#cabbr(...)
+" Wrapper pour la comande ':cabbr'.
+" Si deux chaines exactement sont données en paramètre, alors c'est équivalent à:
+"     :cabbr <a:1> <a:2>
+" Si seulement une liste est donnée en paramètre, alors chaque paire clé/valeur
+"     servira pour définir une abbréviation.
+" Si le plugin externe cmdalias.vim est installé, alors utilise celui-ci au lieu d'utiliser
+" directement :cabbr .
 function! _#cabbr(...)
 	if a:0 == 2 && type(a:1)==v:t_string && type(a:2)==v:t_string
 		call s:cabbr(a:1, a:2)
@@ -69,6 +89,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#relative_path(from_path, target)
+" Renvoie le chemin relatif vers a:target, par rapport à a:from_path.
 function! _#relative_path(from_path, target)
 py3 << EOF
 import os
@@ -81,6 +102,8 @@ endf
 
 
 "'''''''''''''''''''' function! _#filter_completion(completion_list, lead, ...)
+" Filtre la liste a:completion_list en gardant seulement les éléments commençant par a:lead.
+" Utile pour les complétions personnalisées.
 " @param a:1  Si =1, alors ajoute un espace lorsqu'il n'y a qu'un choix
 function! _#filter_completion(completion_list, lead, ...)
 	let l:len = strlen(a:lead)
@@ -93,7 +116,8 @@ endf
 
 
 
-"''''''''''''''''''''     function! _#get_visual()
+"'''''''''''''''''''' function! _#get_visual()
+" Renvoie le contenu du texte actuellement sélectionné.
 function! _#get_visual()
 	let [lnum1, col1] = getpos("'<")[1:2]
 	let [lnum2, col2] = getpos("'>")[1:2]
@@ -106,6 +130,7 @@ endfunction
 
 
 "'''''''''''''''''''' function! _#capitalize(str)
+" Renvoie la chaine donnée en paramètre avec sa première lettre en majuscule.
 function! _#capitalize(str)
 	if empty(a:str)
 		return ''
@@ -116,6 +141,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#get_all_matches(str, pat)
+" Renvoie toutes les chaînes qui matchent le pattern indiqué.
 function! _#get_all_matches(expr, pat)
 	let l:matches = []
 	let l:count = 1
@@ -173,6 +199,12 @@ endf
 
 
 "'''''''''''''''''''' function! _#toggle_option(option_name, values, ...)
+" Bascule l'option donnée entre plusieur valeurs.
+" @param a:option_name  Nom de l'option à modifier
+" @param a:values       Liste des valeurs entre lesquelles basculer
+" @param a:1            Si =1, alors affiche la nouvelle valeur
+" @return               v:true si l'option a été modifiée
+"
 function! _#toggle_option(option_name, values, ...)
 	let l:current_value = eval('&'.a:option_name)
 	for i in range(len(a:values))
@@ -180,7 +212,7 @@ function! _#toggle_option(option_name, values, ...)
 		if l:val == l:current_value
 			let l:new_i = (i + 1) % len(a:values)
 			call s:set_option(a:option_name, a:values[l:new_i])
-			if a:0 > 0 && a:1 == v:true
+			if a:0 > 0 && a:1
 				exe printf('set %s?', a:option_name)
 			endif
 			return v:true
@@ -192,6 +224,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#set_mapleader(val)
+" Définit la valeur de mapleader tout en sauvegardant son ancienne valeur.
 function! _#set_mapleader(val)
 	let s:old_mapleader = exists('mapleader') ? mapleader : v:none
 	let g:mapleader = a:val
@@ -200,6 +233,9 @@ endf
 
 
 "'''''''''''''''''''' function! _#set_mapleader_from_var(varname)
+" Définit la valeur de mapleader à partir d'une variable, dont le nom est donné en paramètre. Si
+" cette variable n'existe pas, se rabat sur la valuer actuelle de mapleader, ou en dernier définit
+" par défaut '\'. Utile pour les plugins.
 function! _#set_mapleader_from_var(varname)
 	if exists(a:varname)
 		call _#set_mapleader({a:varname})
@@ -215,6 +251,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#restore_mapleader()
+" Restore le mapleader sauvé à l'appel de `_#set_mapleader()` ou '_#set_mapleader_from_var()'
 function! _#restore_mapleader()
 	if !exists('s:old_mapleader')
 		return
@@ -230,6 +267,7 @@ endf
 
 
 "'''''''''''''''''''' function! _#is_empty_buffer(...)
+" Renvoie 1 si le buffer est vide.
 function! _#is_empty_buffer(...)
 	let l:buffer = a:0 > 0 ? a:1 : '%'
 	let l:two_lines = getbufline(l:buffer, 1, 2)
@@ -239,6 +277,10 @@ endf
 
 
 "'''''''''''''''''''' function! _#is_new_buffer(...)
+" Renvoie 1 si le buffer est à la fois:
+"   - vide
+"   - non-modifié
+"   - sans nom de fichier défini
 function! _#is_new_buffer(...)
 	let l:buffer = a:0 > 0 ? a:1 : '%'
 	return

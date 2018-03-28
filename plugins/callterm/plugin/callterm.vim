@@ -12,9 +12,13 @@ endif
 
 " Configuration :
 
+" Chemin vers le terminal à utiliser:
 call _#let_default('g:callterm_terminal', 'xterm')
+
+" Chemin vers le gestionnaire de fichiers à utiliser:
 call _#let_default('g:callterm_filebrowser', 'thunar')
 
+" Informations spécifiques pour la ligne de commande des terminaux:
 call _#let_default('g:callterm_terminals', {})
 call extend(g:callterm_terminals, {
 	\ 'xterm' : {
