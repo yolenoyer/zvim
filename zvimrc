@@ -10,7 +10,7 @@ set nocompatible
 " Affichage :
 
 set nohls               " no highlight search
-set so=5                " scrolloff : marge autour du curseur
+set so=7                " scrolloff : marge autour du curseur
 set display=lastline    " affiche la dernière ligne même si elle trop longue
 set ml                  " modeline (options vim à la fin des fichiers)
 
@@ -41,6 +41,7 @@ set history=1000        " longueur d'historique
 set mouse=a             " autorise la souris en mode terminal
 let &titlestring = '%f   |   %{getcwd()}'
                         " Titre de la fenêtre
+set showtabline=2       " Toujours la tabline
 
 
 
@@ -53,11 +54,17 @@ set fo=tcqro            " formatoptions : commentaires c++ assistés, retour à 
 set fo+=j               " la commande j peut joindre les commentaires intelligemment
 set tw=100              " textwidth : largeur texte max
 set backspace=indent,eol,start  " more powerful backspacing
-set cinoptions=l1L0g0(0Ws
+set cinoptions=l1L0g0Ws
 	" switch/case basique (l1), labels basiques (L0),
 	" classes scopes vers la gauche (g0),
-	" parenthèses alignés par tabulations((0),
 	" parenthèses à la fin = 1 tabulation seulement (Ws)
+
+
+
+
+" Recherche :
+
+let &grepprg = 'grep -Rn $* /dev/null'
 
 
 
@@ -106,6 +113,11 @@ set foldlevel=1         " this is just what i use
 syntax on
 let g:is_bash=1         " Pour la syntaxe des scripts shell
 
+" Syntaxe pour des fichiers spécifiques:
+augroup ZVim_SpecificFiles_Syntax
+	au BufReadPost /etc/port_map set ft=port_map
+augroup END
+
 
 
 
@@ -129,9 +141,13 @@ let s:this_dir = fnamemodify(resolve(expand('<sfile>')), ':p:h')
 " Plugins :
 
 " Commande LocalPlugin
-let s:local_plugins_path = '/home/io/scripts/zvim/plugins'
+let s:local_plugins_path = printf('%s/plugins', s:this_dir)
 command! -nargs=1 LocalPlugin
  \ exe printf('set rtp+=%s/%s', s:local_plugins_path, <q-args>)
+
+" Commande AbolutePlugin
+command! -nargs=1 AbsolutePlugin
+ \ exe printf('set rtp+=%s', <args>)
 
 
 
@@ -139,6 +155,13 @@ command! -nargs=1 LocalPlugin
 
 " Init
 LocalPlugin init
+
+
+" Stoppe l'initialisation ici si $ZV == 'tiny':
+if $ZV == 'tiny'
+	finish
+endif
+
 
 " Fonctions utiles
 LocalPlugin _
@@ -152,14 +175,17 @@ let g:workingdir_mapleader = "\<f1>"
 
 
 
-" Plugins externes :
+
+" Plugins externes:
+" ~~~~~~~~~~~~~~~~
 exe printf('source %s/plugins.vim', s:this_dir)
 
 
 
+
+" Plugins persos supplémentaires lorsque la variable
+" d'environnement $ZV n'est pas égale à 'light':
 if $ZV != 'light'
-	" Plugins persos supplémentaires lorsque la variable
-	" d'environnement $ZV n'est pas égale à 'light':
 
 	" Menu de fichiers communs
 	LocalPlugin usualfiles
@@ -198,6 +224,14 @@ if $ZV != 'light'
 	" Tabe / Tabi / Tabn / EE
 	LocalPlugin tabedit
 
+	" Ecom / Tecom
+	LocalPlugin editcom
+	map gc <plug>EditcomTabEdit
+	map gC <plug>EditcomEdit
+
+	" Wrapper pour gref
+	LocalPlugin gref
+
 	" Sandbox
 	LocalPlugin sandbox
 	let g:sandbox_mapleader = "\<f2>\<f2>"
@@ -210,11 +244,34 @@ if $ZV != 'light'
 	" Fonctionnalités diverses mais utiles
 	LocalPlugin morefeatures
 
+	" Fonctionnalités liées au highlight:
+	LocalPlugin highlight
+
+	" Affichage du highlight courant:
+	LocalPlugin syntools
+
 	" Snippets personnels
 	LocalPlugin snippets
 
+	" Header de fonctions perso:
+	LocalPlugin funcheader
+	map <F3><F1> <plug>FuncheaderHeader
+
 	" Colorscheme perso pour lightline
 	LocalPlugin lightline
+
+	" Fichier mot de passe
+	LocalPlugin mdp
+
+	" Génération de mots de passe:
+	LocalPlugin password
+
+	" Gestion téléphone Huawey:
+	LocalPlugin huawey
+
+	" Recherche web:
+	LocalPlugin websearch
+	let g:websearch_mapleader = "\<F1>"
 
 
 
@@ -231,7 +288,8 @@ if $ZV != 'light'
 	nmap \ <plug>QpatternsFind
 	xmap \ <plug>QpatternsSelect
 	omap \ <plug>QpatternsSelect
-	set rtp+=/home/io/dev/qpatterns/vim_plugin
+
+	AbsolutePlugin '~/dev/vim-qpatterns'
 
 
 
@@ -246,7 +304,7 @@ if $ZV != 'light'
 	cabbr lq  LTQMatch
 	cabbr lqa  LTQMatchAdd
 
-	set rtp+=/home/io/dev/vim-listtools/
+	AbsolutePlugin '~/dev/vim-listtools/'
 
 
 

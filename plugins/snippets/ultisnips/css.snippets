@@ -1,0 +1,648 @@
+priority -52
+
+
+snippet us:n
+user-select: none;
+endsnippet
+
+snippet fcc
+display: flex;
+justify-content: center;
+align-items: center;
+endsnippet
+
+snippet ifcc
+display: inline-flex;
+justify-content: center;
+align-items: center;
+endsnippet
+
+snippet bs
+box-shadow: ${1:[offset-x]} ${2:[offset-y]} ${3:[radius]} ${4:[spread]} ${5:rgba(0,0,0,0.7)};$0
+endsnippet
+
+snippet bc:c
+border-collapse: collapse;
+endsnippet
+
+snippet wh
+width: $1;
+height: ${2:$1};$0
+endsnippet
+
+snippet tl
+top: $1;
+left: ${2:$1};$0
+endsnippet
+
+snippet pv
+padding-top: $1;
+padding-bottom: ${2:$1};$0
+endsnippet
+
+snippet ph
+padding-left: $1;
+padding-right: ${2:$1};$0
+endsnippet
+
+snippet mv
+margin-top: $1;
+margin-bottom: ${2:$1};$0
+endsnippet
+
+snippet mh
+margin-left: $1;
+margin-right: ${2:$1};$0
+endsnippet
+
+
+
+snippet minw
+min-width: $1;$0
+endsnippet
+
+snippet maxw
+max-width: $1;$0
+endsnippet
+
+snippet minh
+min-height: $1;$0
+endsnippet
+
+snippet maxh
+max-height: $1;$0
+endsnippet
+
+snippet lh
+line-height: $1;$0
+endsnippet
+
+snippet ov
+overflow: ${1:auto};$0
+endsnippet
+
+snippet ov:a
+overflow: auto;
+endsnippet
+
+snippet ov:h
+overflow: hidden;
+endsnippet
+
+snippet ov:s
+overflow: scroll;
+endsnippet
+
+snippet oy
+overflow-y: ${1:auto};$0
+endsnippet
+
+snippet oy:a
+overflow-y: auto;
+endsnippet
+
+snippet oy:h
+overflow-y: hidden;
+endsnippet
+
+snippet oy:s
+overflow-y: scroll;
+endsnippet
+
+snippet ox
+overflow-x: ${1:auto};$0
+endsnippet
+
+snippet ox:a
+overflow-x: auto;
+endsnippet
+
+snippet ox:h
+overflow-x: hidden;
+endsnippet
+
+snippet ox:s
+overflow-x: scroll;
+endsnippet
+
+snippet tr
+transition: ${1:opacity 1s};$0
+endsnippet
+
+snippet o
+opacity: ${1:0};$0
+endsnippet
+
+snippet fs:i
+font-style: italic;
+endsnippet
+
+snippet td
+text-decoration: ${1:none};$0
+endsnippet
+
+snippet td:n
+text-decoration: none;
+endsnippet
+
+snippet td:u
+text-decoration: underline;
+endsnippet
+
+snippet ta:c
+text-align: center;
+endsnippet
+
+snippet ta:r
+text-align: right;
+endsnippet
+
+snippet ta:l
+text-align: left;
+endsnippet
+
+snippet va
+vertical-align: ${1:middle};$0
+endsnippet
+
+snippet va:m
+vertical-align: middle;$0
+endsnippet
+
+snippet d:ib
+display: inline-block;
+endsnippet
+
+snippet d:b
+display: block;
+endsnippet
+
+snippet d:i
+display: inline;
+endsnippet
+
+snippet d:n
+display: none;
+endsnippet
+
+snippet v:v
+visibility: visible;
+endsnippet
+
+snippet v:h
+visibility: hidden;
+endsnippet
+
+snippet c
+color: $0;
+endsnippet
+
+snippet fw:b
+font-weight: bold;
+endsnippet
+
+snippet fw
+font-weight: ${1:bold};$0
+endsnippet
+
+snippet bs:bb
+box-sizing: border-box;
+endsnippet
+
+snippet bs:cb
+box-sizing: content-box;
+endsnippet
+
+
+snippet fd
+flex-direction
+endsnippet
+
+snippet fd:c
+flex-direction: column;
+endsnippet
+
+snippet fd:r
+flex-direction: row;
+endsnippet
+
+
+snippet jc
+justify-content: $1;$0
+endsnippet
+
+snippet jc:fs
+justify-content: flex-start;
+endsnippet
+
+snippet jc:fe
+justify-content: flex-end;
+endsnippet
+
+snippet jc:c
+justify-content: center;
+endsnippet
+
+snippet jc:sb
+justify-content: space-between;
+endsnippet
+
+snippet jc:sa
+justify-content: space-around;
+endsnippet
+
+snippet jc:se
+justify-content: space-evenly;
+endsnippet
+
+
+snippet ai
+align-items: ${1:center};$0
+endsnippet
+
+snippet ai:fs
+align-items: flex-start;
+endsnippet
+
+snippet ai:fe
+align-items: flex-end;
+endsnippet
+
+snippet ai:c
+align-items: center;
+endsnippet
+
+snippet ai:b
+align-items: baseline;
+endsnippet
+
+snippet ai:s
+align-items: stretch;
+endsnippet
+
+
+snippet ac
+align-content: ${1:center};$0
+endsnippet
+
+snippet ac:fs
+align-content: flex-start;
+endsnippet
+
+snippet ac:fe
+align-content: flex-end;
+endsnippet
+
+snippet ac:c
+align-content: center;
+endsnippet
+
+snippet ac:b
+align-content: baseline;
+endsnippet
+
+snippet ac:s
+align-content: stretch;
+endsnippet
+
+
+snippet as
+align-self: ${1:center};$0
+endsnippet
+
+snippet as:fs
+align-self: flex-start;
+endsnippet
+
+snippet as:fe
+align-self: flex-end;
+endsnippet
+
+snippet as:c
+align-self: center;
+endsnippet
+
+snippet as:b
+align-self: baseline;
+endsnippet
+
+snippet as:s
+align-self: stretch;
+endsnippet
+
+
+
+snippet itt
+input[type=text]
+endsnippet
+
+snippet itc
+input[type=checkbox]
+endsnippet
+
+snippet ith
+input[type=hidden]
+endsnippet
+
+snippet c:p
+cursor: pointer;
+endsnippet
+
+snippet c:d
+cursor: default;
+endsnippet
+
+snippet fs:s
+font-size: smaller;
+endsnippet
+
+snippet fs:l
+font-size: larger;
+endsnippet
+
+snippet . "selector { }"
+$1 {
+	$0
+}
+endsnippet
+
+snippet fs
+font-size: ${1};$0
+endsnippet
+
+snippet fsz
+font-size: ${1};$0
+endsnippet
+
+snippet t
+top: ${1:0};$0
+endsnippet
+
+snippet r
+right: ${1:0};$0
+endsnippet
+
+snippet b
+bottom: ${1:0};$0
+endsnippet
+
+snippet l
+left: ${1:0};$0
+endsnippet
+
+snippet p "padding"
+padding: ${1:0};$0
+endsnippet
+
+snippet pt "padding-top"
+padding-top: ${1:0};$0
+endsnippet
+
+snippet pb "padding-bottom"
+padding-bottom: ${1:0};$0
+endsnippet
+
+snippet pl "padding-left"
+padding-left: ${1:0};$0
+endsnippet
+
+snippet pr "padding-right"
+padding-right: ${1:0};$0
+endsnippet
+
+snippet m "margin"
+margin: ${1:0};$0
+endsnippet
+
+snippet mt "margin-top"
+margin-top: ${1:0};$0
+endsnippet
+
+snippet mb "margin-bottom"
+margin-bottom: ${1:0};$0
+endsnippet
+
+snippet ml "margin-left"
+margin-left: ${1:0};$0
+endsnippet
+
+snippet mr "margin-right"
+margin-right: ${1:0};$0
+endsnippet
+
+snippet bc
+border-color: ${1};${0}
+endsnippet
+
+snippet bo "border"
+border: ${1:${2:1px} ${3:solid} ${4:white}};$0
+endsnippet
+
+snippet bot "border-top"
+border-top: $1;$0
+endsnippet
+
+snippet bor "border-right"
+border-right: $1;$0
+endsnippet
+
+snippet bob "border-bottom"
+border-bottom: $1;$0
+endsnippet
+
+snippet bol "border-left"
+border-left: $1;$0
+endsnippet
+
+snippet d "display"
+display: ${1:none};$0
+endsnippet
+
+snippet bg "background"
+background: ${1:none};$0
+endsnippet
+
+snippet bgc "background-color"
+background-color: ${1:transparent};$0
+endsnippet
+
+snippet bgi "background-image"
+background-image: url($1);$0
+endsnippet
+
+snippet bgs "background-size"
+background-size: $1;$0
+endsnippet
+
+snippet ff "font-family"
+font-family: ${1:"Helvetica Neue", Helvetica, Arial, sans-serif};$0
+endsnippet
+
+snippet ff:m
+font-family: monospace, monospace;
+endsnippet
+
+snippet h "height"
+height: ${1:100%};$0
+endsnippet
+
+snippet w "width"
+width: ${1:100%};$0
+endsnippet
+
+snippet p:r
+position: relative;
+endsnippet
+
+snippet p:a
+position: absolute;
+endsnippet
+
+snippet p:f
+position: fixed;
+endsnippet
+
+snippet p:s
+position: sticky;
+endsnippet
+
+snippet pos "position"
+position: ${1:relative};$0
+endsnippet
+
+snippet tt "text-transform"
+text-transform: ${1:none};$0
+endsnippet
+
+snippet ! "!important CSS (!)"
+!important
+endsnippet
+
+snippet tsh "text-shadow: color-hex x y blur (text)"
+text-shadow: ${1:${2:color} ${3:offset-x} ${4:offset-y} ${5:blur}};$0
+endsnippet
+
+snippet bxsh "box-shadow: color-hex x y blur (text)"
+box-shadow: ${1:${2:offset-x} ${3:offset-y} ${4:blur} ${5:spread} ${6:color}};$0
+endsnippet
+
+#
+# Colors
+#
+
+snippet rgb "color rgb"
+rgb(${1:255}, ${2:255}, ${3:255})$0
+endsnippet
+
+snippet rgba "color rgba"
+rgba(${1:255}, ${2:255}, ${3:255}, ${4:0.5})$0
+endsnippet
+
+snippet hsl "color hsl"
+hsl(${1:360}, ${2:100}%, ${3:100}%)$0
+endsnippet
+
+snippet hsla "color hsla"
+hsla(${1:360}, ${2:100}%, ${3:100}%, ${4:0.5})$0
+endsnippet
+
+#
+# Selectors
+#
+
+snippet :fc "" i
+:first-child
+endsnippet
+
+snippet :nfc
+:not(:first-child)
+endsnippet
+
+snippet :lc "" i
+:last-child
+endsnippet
+
+snippet :nlc
+:not(:last-child)
+endsnippet
+
+snippet :nth "" i
+:nth-child($1)$0
+endsnippet
+
+snippet :nc "" i
+:nth-child($1)$0
+endsnippet
+
+snippet :nlc "" i
+:nth-last-child($1)$0
+endsnippet
+
+snippet :oc "" i
+:only-child
+endsnippet
+
+#
+# Pseudo-elements
+#
+
+snippet :a
+:after
+endsnippet
+
+snippet :b
+:before
+endsnippet
+
+snippet ::a
+::after
+endsnippet
+
+snippet ::b
+::before
+endsnippet
+
+###########################################################################
+#                    Most of these came from TextMate                     #
+###########################################################################
+
+snippet {
+$1 {
+	$0
+} // } $1
+
+endsnippet
+
+snippet br "border-radius"
+border-radius: $1;$0
+endsnippet
+
+snippet d:f "display: flex"
+display: flex;$0
+endsnippet
+
+snippet d:if "display: inline-flex"
+display: inline-flex;$0
+endsnippet
+
+snippet fg "flex-grow"
+flex-grow: ${1:1};$0
+endsnippet
+
+snippet ws:nw "white-space: nowrap"
+white-space: nowrap;$0
+endsnippet
+
+snippet ws:n
+white-space: normal;$0
+endsnippet
+
+snippet w:n "white-space: nowrap"
+white-space: nowrap;$0
+endsnippet
+
+snippet z "z-index: index (z)"
+z-index: $1;$0
+endsnippet
+
+# vim:ft=snippets:

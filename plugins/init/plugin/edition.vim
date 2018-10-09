@@ -26,10 +26,16 @@ nnoremap <silent> _<space> :%s/\s\+$//<cr>
 
 "'''''''''''''''''''' Complétion
 
-inoremap <c-]> <c-x><c-]>
 inoremap <c-f> <c-x><c-f>
 inoremap <c-l> <c-x><c-l>
 inoremap <c-b> <c-x><c-p>
+
+
+
+
+"'''''''''''''''''''' Dupliquer une ligne (edit mode)
+
+inoremap <c-_> <esc>:t+0<cr>gi<c-o>j
 
 
 

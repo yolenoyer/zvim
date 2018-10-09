@@ -17,6 +17,24 @@ endf
 
 
 
+"'''''''''''''''''''' function! s:get_system_command(arr)
+function! s:get_system_command(arr)
+	let l:command = []
+	for l:arg in a:arr
+		if (type(l:arg) == v:t_string)
+			let l:new_args = [ shellescape(l:arg) ]
+		elseif (type(l:arg) == v:t_list)
+			let l:new_args = map(copy(l:arg), { k, v -> shellescape(v) })
+		else
+			continue
+		endif
+		call extend(l:command, l:new_args)
+	endfor
+	return join(l:command)
+endf
+
+
+
 "'''''''''''''''''''' function! _#system(...)
 " Exécute une commande système, et renvoie sa sortie.
 " Chaque paramètre de la fonction peut être
@@ -24,25 +42,25 @@ endf
 "   - un tableau de chaines (ou nombres) (arguments multiples extraits de leur tableau)
 " @return string
 function! _#system(...)
-	let l:command = []
-	for l:arg in a:000
-		if (type(l:arg) == v:t_string)
-			let l:new_args = [ shellescape(l:arg) ]
-		elseif (type(l:arg) == v:t_list)
-			let l:new_args = map(l:arg, { k, v -> shellescape(v) })
-		else
-			continue
-		endif
-		call extend(l:command, l:new_args)
-	endfor
-	let l:out = system(join(l:command))
-	return l:out
+	return system(s:get_system_command(a:000))
+endf
+
+
+
+"'''''''''''''''''''' function! _#systemlist(...)
+" Exécute une commande système, et renvoie sa sortie sous forme de liste.
+" Chaque paramètre de la fonction peut être
+"   - une chaine, éventuellement un nombre (argument seul)
+"   - un tableau de chaines (ou nombres) (arguments multiples extraits de leur tableau)
+" @return string
+function! _#systemlist(...)
+	return systemlist(s:get_system_command(a:000))
 endf
 
 
 
 "'''''''''''''''''''' function! _#let_default(var_name, default_val)
-" Définit une valriable uniquement si elle n'existe pas déjà
+" Définit une variable uniquement si elle n'existe pas déjà
 function! _#let_default(var_name, default_val)
 	if (!exists(a:var_name))
 		let {a:var_name} = a:default_val
@@ -136,6 +154,14 @@ function! _#capitalize(str)
 		return ''
 	endif
 	return toupper(a:str[0]) . strpart(a:str, 1)
+endf
+
+
+
+"'''''''''''''''''''' function! _#trim(str)
+" Renvoie la chaine nettoyée de ses espaces et retours chariots extérieurs.
+function! _#trim(str)
+	return substitute(a:str, '^[ \t\n]\+\|[ \t\n]\+$', '', 'g')
 endf
 
 
@@ -234,7 +260,7 @@ endf
 
 "'''''''''''''''''''' function! _#set_mapleader_from_var(varname)
 " Définit la valeur de mapleader à partir d'une variable, dont le nom est donné en paramètre. Si
-" cette variable n'existe pas, se rabat sur la valuer actuelle de mapleader, ou en dernier définit
+" cette variable n'existe pas, se rabat sur la valeur actuelle de mapleader, ou en dernier définit
 " par défaut '\'. Utile pour les plugins.
 function! _#set_mapleader_from_var(varname)
 	if exists(a:varname)
@@ -287,6 +313,16 @@ function! _#is_new_buffer(...)
 		\ empty(bufname(l:buffer))
 		\ && !getbufvar(l:buffer, '&modified')
 		\ && _#is_empty_buffer(l:buffer)
+endf
+
+
+
+"'''''''''''''''''''' function! _#get_comment_leader()
+" Renvoie le leader à utiliser pour cmmenter une ligne simple dans le langage du buffer courant, ou
+" v:none si non-trouvé.
+function! _#get_comment_leader()
+	let l:leader = matchlist(&comments, '\(^\|,\)[^sme:,]*:\zs.\{-}\ze\($\|,\)')
+	return !empty(l:leader) ? l:leader[0] : v:none
 endf
 
 

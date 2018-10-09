@@ -12,17 +12,17 @@ endif
 " Abbréviations :
 
 call _#cabbr({
- \	'pe' : 'MPEdit',
- \	'ep' : 'MPEdit',
- \	'pl' : 'MPList',
+ \	'pe' : 'PEdit',
+ \	'ep' : 'PEdit',
+ \	'pl' : 'PList',
  \ })
 
 
 " Commandes :
 
 command! -nargs=+ -complete=customlist,plugman#complete_edit_command
-	\ MPEdit call plugman#edit(<f-args>)
+	\ PEdit call plugman#edit(<f-args>)
 
 command! -nargs=* -complete=customlist,plugman#complete_list_command
-	\ MPList call plugman#list(<f-args>)
+	\ PList call plugman#list(<f-args>)
 

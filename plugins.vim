@@ -1,5 +1,10 @@
 
 " Initialisation des plugins externes, gérés par Vundle.
+"
+" Utilisation des variables d'environnement:
+"    $ZV   Si cette variable est définie à 'light', alors une grande partie des plugins ne sera pas
+"          chargée (voir + bas)
+"    $YCM  Cette variable doit être définie à '1' pour que YouCompleteMe soit chargé.
 
 
 let s:this_dir = fnamemodify(resolve(expand('<sfile>')), ':p:h')
@@ -8,7 +13,7 @@ let s:this_dir = fnamemodify(resolve(expand('<sfile>')), ':p:h')
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=/home/io/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 
@@ -30,7 +35,7 @@ let g:ctrlp_regexp = 1
 let g:ctrlp_prompt_mappings = {
 	\ 'ToggleType(1)':        ['<c-f>', '<c-right>'],
 	\ 'ToggleType(-1)':       ['<c-b>', '<c-left>'],
-	\ 'AcceptSelection("e")': ['<s-cr>', '<2-LeftMouse>'],
+	\ 'AcceptSelection("e")': ['<s-cr>', '<F4>', '<2-LeftMouse>'],
 	\ 'AcceptSelection("t")': ['<cr>', '<c-t>'],
     \ }
 
@@ -73,7 +78,7 @@ Plugin 'tpope/vim-abolish'
 " Commandes unix:
 Plugin 'tpope/vim-eunuch'
 call _#cabbr({
- \	'mv' : 'Move', 'rm' : 'Remove',
+ \	'mv' : 'Move', 'rm' : 'Delete',
  \	'chmod' : 'Chmod', 'chx' : 'Chmod +x',
  \	'ww' : 'SudoWrite',
  \ })
@@ -96,8 +101,9 @@ fun! AddMyCycleGroups()
 	let l:groups = [
 		\ ['True', 'False'], ['yes', 'no'], ['Yes', 'No'],
 		\ ['width', 'height'], ['vertical', 'horizontal'],
-		\ ['hight', 'low'],
-		\ ['col', 'line', 'row'], ['cols', 'lines', 'row'],
+		\ ['high', 'low'], ['top', 'bottom'],
+		\ ['start', 'end'],
+		\ ['col', 'line', 'row'], ['cols', 'lines', 'rows'],
 		\ ['black', 'white'], ['dark', 'light'],
 		\ [ 'blue', 'green', 'orange', 'cyan', 'red', 'purple', 'yellow' ],
         \ ['x', 'y'],
@@ -128,11 +134,12 @@ if $ZV != 'light'
 	let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 	let g:UltiSnipsListSnippets = '<f1><tab>'
 	let g:UltiSnipsEditSplit = 'vertical'
-	let g:UltiSnipsSnippetsDir = printf('%s/plugins/snippets/UltiSnips', s:this_dir)
+	let g:UltiSnipsSnippetsDir = printf('%s/plugins/snippets/ultisnips', s:this_dir)
+	let g:UltiSnipsSnippetDirectories=['ultisnips']
 	call _#cabbr('es', 'UltiSnipsEdit')
 
 	" Snippets
-	Plugin 'honza/vim-snippets'
+	" Plugin 'honza/vim-snippets'
 
 
 
@@ -144,7 +151,8 @@ if $ZV != 'light'
 	\     'left': [
 	\         [ 'gitbranch' ],
 	\         [ 'bufnum' ],
-	\         [ 'readonly', 'filename', 'modified' ],
+	\         [ 'readonly'],
+	\         [ 'myfilename', 'modified' ],
 	\     ],
 	\     'right': [
 	\         [ 'col' ],
@@ -174,7 +182,8 @@ if $ZV != 'light'
 	\     'percent' : '%P',
 	\     'line' : '%3l',
 	\     'col' : '%-7(|%c%V|%)',
-	\     'cwd' : '%{getcwd()}',
+	\     'cwd' : '[ %{getcwd()} ]',
+	\     'myfilename' : '%{LLF_Prepare()}%{b:llf_parts[0]}%#Lightline_Pysv#%{b:llf_parts[1]}%#LightlineLeft_active_3#%{b:llf_parts[2]}',
 	\ },
 	\ 'component_expand' : {
 	\     'gitbranch' : 'fugitive#head',
@@ -183,6 +192,46 @@ if $ZV != 'light'
 	\     'gitbranch' : 'git',
 	\ },
 	\}
+
+	function! LLF_Prepare()
+		if !exists('b:llf_basic') || b:llf_buffername != @%
+			let b:llf_buffername = @%
+			let b:llf_basic = fnamemodify(@%, ':p')
+			let b:llf_dir_parts = split(fnamemodify(b:llf_basic, ':h'), '/')
+			let b:llf_filename = fnamemodify(b:llf_basic, ':t')
+			let b:llf_cwd = ''
+		endif
+
+		if b:llf_cwd != getcwd()
+			let b:llf_cwd = getcwd()
+
+			let b:llf_parts = ['', '', '']
+
+			if @% == ''
+				let b:llf_parts[0] = '[Brouillon]'
+				return ''
+			endif
+
+			let l:cur_part = 0
+			let l:construct_path = ''
+
+			for l:dir_part in b:llf_dir_parts
+				let l:construct_path .= '/' . l:dir_part
+				if l:construct_path == b:llf_cwd
+					let b:llf_parts[0] .= '/'
+					let b:llf_parts[1] = l:dir_part
+					let l:cur_part = 2
+				else
+					let b:llf_parts[l:cur_part] .= '/' . l:dir_part
+				endif
+			endfor
+
+			let b:llf_parts[2] .= '/' . b:llf_filename
+		endif
+
+		return ''
+	endf
+
 
 
 
@@ -195,12 +244,37 @@ if $ZV != 'light'
 	nmap <space>hs <Plug>GitGutterStageHunk
 	nmap <space>hu <Plug>GitGutterUndoHunk
 	nmap <space>hp <Plug>GitGutterPreviewHunk
+	nmap [c <Plug>GitGutterPrevHunk
+	nmap ]c <Plug>GitGutterNextHunk
+
+
+
+    "'''''''''''''''''''' Doxygen ''''''''''''''''''''
+    Plugin 'DoxygenToolkit.vim'
+	let g:DoxygenToolkit_briefTag_pre = ''
+
+	call _#cabbr('dox', 'call DoxygenYo()')
+	call _#cabbr('doxc', 'call DoxygenYo("constructor")')
+	function! DoxygenYo(...)
+		call _#set_temp_option('indentexpr', '')
+		call _#set_temp_option('cindent', 1)
+		Dox
+
+		if a:0 >= 1 && a:1 == 'constructor'
+			exe "norm AConstructor.\<esc>2j"
+			startinsert!
+		endif
+
+		call _#restore_option('indentexpr')
+		call _#restore_option('cindent')
+	endf
 
 
 
 	"'''''''''''''''''''' Plugin nerdtree ''''''''''''''''''''
 	Plugin 'scrooloose/nerdtree'
 	let NERDTreeQuitOnOpen = 1  " Ferme le menu à l'ouverture d'un fichier
+	let NERDTreeMapPreview = 'v'
 	nnoremap <silent> <space>t :NERDTreeFind<cr>
 	nnoremap <silent> <F2>t :NERDTreeToggle<cr>
 
@@ -250,8 +324,28 @@ if $ZV != 'light'
 	" Plugin 'felixhummel/setcolors.vim'
 
 
+
 	"'''''''''''''''''''' Filetypes addons
+	" Twig :
 	Plugin 'lumiliet/vim-twig'
+	Plugin 'digitaltoad/vim-pug'
+	" Javascript ES7 :
+	" Plugin 'othree/yajs.vim'
+	" Javascript (syntaxe/indentation): 
+	Plugin 'pangloss/vim-javascript'
+
+
+
+
+endif
+
+
+if $YCM == '1'
+
+	"'''''''''''''''''''' Plugin YouCompleteMe ''''''''''''''''''''
+	Plugin 'Valloric/YouCompleteMe'
+	exe printf('source %s/youcompleteme.vim', s:this_dir)
+	
 endif
 
 

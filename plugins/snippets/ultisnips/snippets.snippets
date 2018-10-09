@@ -1,0 +1,40 @@
+priority -50
+
+
+snippet X
+`!p snip.rv = "snippet"` oy:${1}
+overflow-y: $2;
+`!p snip.rv = "endsnippet"`
+$0
+endsnippet
+
+snippet es
+`!p snip.rv = "endsnippet"`
+endsnippet
+
+
+# We use a little hack so that the snippet is expanded
+# and parsed correctly
+snippet snip "Snippet definition" b
+`!p snip.rv = "snippet"` ${1}
+$0
+`!p snip.rv = "endsnippet"`
+endsnippet
+
+snippet s "Snippet definition" b
+`!p snip.rv = "snippet"` ${1}
+$0
+`!p snip.rv = "endsnippet"`
+endsnippet
+
+snippet global "Global snippet" b
+`!p snip.rv = "global"` !p
+$0
+`!p snip.rv = "endglobal"`
+endsnippet
+
+snippet vis "${VISUAL}" i
+\$\{VISUAL${1:${2:default}${3:/transform/}}\}
+endsnippet
+
+# vim:ft=snippets:

@@ -17,10 +17,6 @@ function! sandbox#sandbox(filetype)
 	tabnew
 	set bt=nowrite
 
-	" Mappings locaux:
-	noremap <silent> <buffer> <F9> :QuickRun<cr>
-	inoremap <silent> <buffer> <F9> <c-o>:QuickRun<cr>
-
 	" Recherche d'un template:
 	let l:template = sandbox#find_template(a:filetype)
 	if l:template != v:none

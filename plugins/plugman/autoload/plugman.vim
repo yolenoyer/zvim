@@ -1,15 +1,13 @@
 
-"'''''''''''''''''''' function! plugman#edit(plugname, ...)
+"'''''''''''''''''''' function! plugman#edit(...)
 " Édite un ou plusieurs scripts dans les plugins persos.
 " Voir plugman#get_plugin_scripts() pour les paramètres.
-function! plugman#edit(plugname, ...)
-	if a:0 == 0
-		let l:scripts = plugman#get_plugin_scripts(a:plugname)
-	else
-		let l:scripts = plugman#get_plugin_scripts(a:plugname, a:1)
-	endif
+function! plugman#edit(...)
+	let l:scripts = call('plugman#get_plugin_scripts', a:000)
 	if type(l:scripts) == v:t_none
-		call _#error('plugman', printf('Plugin "%s" non-trouvé', a:plugname))
+		" Si l:scripts == v:none, alors il est certain que a:0>0, et que a:1 correspond à un nom de
+		" plugin non-trouvé:
+		call _#error('plugman', printf('Plugin "%s" non-trouvé', a:1))
 		return
 	endif
 	if empty(l:scripts)
@@ -76,7 +74,7 @@ endf
 
 
 "'''''''''''''''''''' function! plugman#list(...)
-" Wrapper pour la commande :MPList.
+" Wrapper pour la commande :PList.
 function! plugman#list(...)
 	if a:0 == 0
 		call plugman#list_plugins()
@@ -148,7 +146,7 @@ function! plugman#get_plugin_scripts(...)
 			let l:filter = a:1
 		else
 			let l:plugname = a:1
-			let l:filter = a:0 > 1 ? a:2 : v:none
+			let l:filter = a:0 >= 2 ? a:2 : v:none
 		endif
 	endif
 
@@ -159,14 +157,18 @@ function! plugman#get_plugin_scripts(...)
 
 	" On détermine le type de filtre suivant les paramètres donnés:
 	if l:filter != v:none
-		let l:pattern_filter = !empty(l:filter) && l:filter[0] == '/'
-		let l:subdir_filter = !l:pattern_filter
+		let l:is_pattern_filter = !empty(l:filter) && l:filter[0] == '/'
+		let l:is_subdir_filter = !l:is_pattern_filter
 	else
-		let l:pattern_filter = v:false
-		let l:subdir_filter = v:false
+		let l:is_pattern_filter = v:false
+		let l:is_subdir_filter = v:false
 	endif
 
-	if l:subdir_filter
+	if l:is_subdir_filter
+		if a:0 >= 3
+			" S'il y a un 3e paramètre, c'est le nom d'un fichier unique:
+			return [ printf('%s/%s/%s', l:dir, l:filter, a:3) ]
+		endif
 		" Cherche seulement dans un sous-répertoire éventuel:
 		let l:dir = printf('%s/%s', l:dir, l:filter)
 	endif
@@ -175,13 +177,10 @@ function! plugman#get_plugin_scripts(...)
 	let l:glob = printf('%s/**/*.vim', l:dir)
 	let l:scripts = glob(l:glob, 0, 1)
 
-	if l:pattern_filter
+	if l:is_pattern_filter
 		" Filtre les noms de script par un pattern:
 		let l:pattern = strpart(l:filter, 1)
-		if !empty(l:pattern) && l:pattern[len(l:pattern) - 1] == '/'
-			" On supprime un '/' final éventuel:
-			let l:pattern = strpart(l:pattern, 0, len(l:pattern) - 1)
-		endif
+		let l:pattern = substitute(l:pattern, '/$', '', '')
 		call filter(l:scripts, { i, f -> match(f, l:pattern) != -1 })
 	endif
 
@@ -191,7 +190,7 @@ endf
 
 
 "'''''''''''''''''''' function! plugman#complete_edit_command(lead, line, pos)
-" Complétion personnalisée pour la commande :MPEdit.
+" Complétion personnalisée pour la commande :PEdit.
 function! plugman#complete_edit_command(lead, line, pos)
 	let l:line = strpart(a:line, 0, a:pos)
 	let l:args = split(l:line)
@@ -202,16 +201,20 @@ function! plugman#complete_edit_command(lead, line, pos)
 	if l:cur_arg == 1
 		return plugman#get_plugins_list(a:lead)
 	elseif l:cur_arg == 2
-		let l:lead = len(l:args) >= 3 ? l:args[2] : v:none
-		if l:lead != v:none && l:lead[0] == '/'
+		let l:lead = len(l:args) >= 3 ? l:args[2] : ''
+		if l:lead != '' && l:lead[0] == '/'
 			return []
 		endif
 		let l:script_dirs = plugman#get_plugin_script_dirs(l:args[1])
-		if l:lead != v:none
-			call _#filter_completion(l:script_dirs, l:lead, v:true)
-				" v:true = ajoute un espace lorsqu'il n'y a qu'un choix
-		endif
+		call _#filter_completion(l:script_dirs, l:lead, v:true)
+			" v:true = ajoute un espace lorsqu'il n'y a qu'un choix
 		return l:script_dirs
+	elseif l:cur_arg == 3
+		let l:lead = len(l:args) >= 4 ? l:args[3] : ''
+		let l:scripts = plugman#get_plugin_scripts(l:args[1], l:args[2])
+		call map(l:scripts, { i, v -> fnamemodify(v, ':t') })
+		call _#filter_completion(l:scripts, l:lead)
+		return l:scripts
 	endif
 	return []
 endf
@@ -219,7 +222,7 @@ endf
 
 
 "'''''''''''''''''''' function! plugman#complete_list_command(lead, line, pos)
-" Complétion personnalisée pour la commande :MPList.
+" Complétion personnalisée pour la commande :PList.
 function! plugman#complete_list_command(lead, line, pos)
 	return plugman#get_plugins_list(a:lead)
 endf

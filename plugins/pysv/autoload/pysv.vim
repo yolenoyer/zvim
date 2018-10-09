@@ -1,12 +1,29 @@
 
+"'''''''''''''''''''' function! s:get_scope_args()
+function! s:get_scope_args(is_global)
+	if type(a:is_global) == v:t_string
+		if isdirectory(a:is_global)
+			return [ '-C', a:is_global ]
+		elseif filereadable(a:is_global)
+			return [ '-C', fnamemodify(a:is_global, ':p:h') ]
+		else
+			throw printf("Argument non-valable: '%s'", a:is_global)
+		endif
+	endif
+
+	if a:is_global
+		return [ '-L', g:pysv_svinfo_global ]
+	else
+		return [ '-C', getcwd() ]
+	endif
+endf
+
+
+
 "'''''''''''''''''''' function! pysv#get_shortcuts(is_global)
 function! pysv#get_shortcuts(is_global)
 	let l:command = [ g:pysv_binary, '--list', '--json' ]
-	if a:is_global
-		let l:command += [ '-L', g:pysv_svinfo_global ]
-	else
-		let l:command += [ '-C', getcwd() ]
-	endif
+	let l:command += s:get_scope_args(a:is_global)
 	let l:output = _#system(l:command)
 	if v:shell_error != 0
 		throw l:output
@@ -16,8 +33,29 @@ endf
 
 
 
+"'''''''''''''''''''' function! pysv#get_root(is_global)
+function! pysv#get_root(is_global, ...)
+	let l:command = [ g:pysv_binary, '--get-project-dir' ]
+	let l:command += s:get_scope_args(a:is_global)
+	let l:output = _#system(l:command)
+	if v:shell_error != 0
+		if a:0 >= 1 && a:1
+			return v:none
+		else
+			throw l:output
+		endif
+	endif
+	return _#trim(l:output)
+endf
+
+
+
 "'''''''''''''''''''' function! pysv#get_path(is_global, key)
 function! pysv#get_path(is_global, key)
+	if a:key == '/' || a:key == ''
+		return pysv#get_root(a:is_global)
+	endif
+
 	let l:shortcuts = pysv#get_shortcuts(a:is_global)
 	if !has_key(l:shortcuts, a:key)
 		throw printf("Le raccourci '%s' n'existe pas", a:key)
@@ -102,7 +140,9 @@ endf
 
 "''''''''''''''''''''function! pysv#sve(sv_path, ...)
 function! pysv#sve(sv_path, ...)
-	let l:edit_command = a:0 > 0 && a:1 ? 'tabe' : 'e'
+	let l:edit_command = a:0 >= 1 && a:1 ? 'tabe' : 'e'
+	let l:edit_command = (a:0 < 2 || a:0 >= 2 && a:2) ? l:edit_command : 'Tabi'
+
 	let l:infos = pysv#parse_path(a:sv_path)
 	exe l:edit_command fnameescape(l:infos.whole_path)
 endf

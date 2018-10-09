@@ -1,8 +1,12 @@
 
-"'''''''''''''''''''' Inversion . et ;
+"'''''''''''''''''''' Inversions . / ; / , / ?
 
 noremap . ;
 noremap ; .
+noremap ? ,
+noremap g? ?
+noremap g/ ?
+noremap <space>? ?
 
 
 
@@ -38,6 +42,8 @@ inoremap <silent> <Down> <c-o>gj
 inoremap <silent> <Up> <c-o>gk
 
 noremap ç ^
+noremap <home> ^
+noremap <kHome> ^
 
 if has('gui_running')
 	noremap <kEnter> G
@@ -59,7 +65,7 @@ noremap <space>, f<space>,
 
 "'''''''''''''''''''' Buffers
 
-noremap __ <c-^>
+noremap <F4><F4> <c-^>
 
 
 
@@ -74,8 +80,18 @@ noremap <silent> <f6> :next<cr>
 
 "'''''''''''''''''''' Quickfix
 
-noremap <silent> <f7> :cprevious<cr>
-noremap <silent> <f8> :cnext<cr>
+noremap <silent> <f7> :cprevious<cr>zz
+noremap <silent> <f8> :cnext<cr>zz
+
+
+
+
+"'''''''''''''''''''' Tabs
+
+noremap <silent> <f9> :tabprevious<cr>
+noremap <silent> <f10> :tabnext<cr>
+noremap <silent> <c-f9> :tabm -1<cr>
+noremap <silent> <c-f10> :tabm +1<cr>
 
 
 

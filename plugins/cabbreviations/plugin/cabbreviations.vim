@@ -3,17 +3,28 @@
 
 
 let g:aliases = {
-\	'te' : 'tabe',
-\	'tn' : 'tabnew',
+\	'te'  : 'tabe',
+\	'tn'  : 'tabnew',
+\	'ts'  : 'tab split',
+\	'tb'  : 'tab split\|b',
+\
+\	've'  : 'vsplit',
+\	'vn'  : 'vnew',
+\	'vb'  : 'vsplit\|b',
 \
 \	'wso' : 'w\|so %',
-\	'ws' : 'w\|so %',
+\	'ws'  : 'w\|so %',
 \
-\	'fs' : 'FontSize',
+\	'mc'  : 'mapclear',
+\	'mcb' : 'mapclear <buffer>',
+\	'cmb' : 'mapclear <buffer>',
+\	'fs'  : 'FontSize',
 \
-\	'th' : 'tab h',
-\	'vh' : 'vert h',
-\	'yh' : 'vert h',
+\
+\
+\	'th'  : 'tab h',
+\	'vh'  : 'vert h',
+\	'yh'  : 'vert h',
 \
 \	'hf'  : 'h function-list',
 \	'thf' : 'tab h function-list',
