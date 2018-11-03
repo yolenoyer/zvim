@@ -333,6 +333,7 @@ if $ZV != 'light'
 	" Plugin 'othree/yajs.vim'
 	" Javascript (syntaxe/indentation): 
 	Plugin 'pangloss/vim-javascript'
+	Plugin 'leafgarland/typescript-vim'
 
 
 

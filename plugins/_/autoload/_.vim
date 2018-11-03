@@ -318,11 +318,50 @@ endf
 
 
 "'''''''''''''''''''' function! _#get_comment_leader()
-" Renvoie le leader à utiliser pour cmmenter une ligne simple dans le langage du buffer courant, ou
+" Renvoie le leader à utiliser pour commenter une ligne simple dans le langage du buffer courant, ou
 " v:none si non-trouvé.
 function! _#get_comment_leader()
 	let l:leader = matchlist(&comments, '\(^\|,\)[^sme:,]*:\zs.\{-}\ze\($\|,\)')
 	return !empty(l:leader) ? l:leader[0] : v:none
+endf
+
+
+
+"'''''''''''''''''''' function! _#path_separator()
+" Renvoie le séparateur de chemin ('/' ou '\') de l'OS actuel.
+function! _#path_separator()
+	py << EOF
+import os
+import vim
+vim.command("return '{}'".format(os.sep))
+EOF
+endf
+
+
+
+"'''''''''''''''''''' function! _#is_in_dir(file, dir)
+" Renvoie `true` si le chemin donné se trouve dans le répertoire (chemin) donné.
+function! _#is_in_dir(file, dir)
+	let l:absolute_file = fnamemodify(a:file, ':p:h') . _#path_separator()
+	let l:absolute_dir  = fnamemodify(a:dir, ':p')
+	let l:truncate_file = strpart(l:absolute_file, 0, strlen(l:absolute_dir))
+	return l:absolute_dir == l:truncate_file
+endf
+
+
+
+"'''''''''''''''''''' function! _#sum(list)
+" Effectue la somme des nombres trouvés dans la liste. Si une chaine est trouvée dans la liste,
+" tente de la convertir en nombre.
+function! _#sum(list)
+	let l:sum = 0
+	for n in a:list
+		if type(n) == v:t_string
+			let n = str2nr(n)
+		endif
+		let l:sum += n
+	endfor
+	return l:sum
 endf
 
 

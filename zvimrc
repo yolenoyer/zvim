@@ -332,3 +332,11 @@ endif " $ZV != 'light'
 
 
 
+" Source éventuellement un fichier ignoré par Git:
+let s:unsaved_vimrc = s:this_dir . '/unsaved___vimrc.vim'
+if filereadable(s:unsaved_vimrc)
+	exe 'source' s:unsaved_vimrc
+endif
+
+
+
