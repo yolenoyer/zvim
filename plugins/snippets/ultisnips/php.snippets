@@ -82,6 +82,10 @@ snippet pr
 print_r(${1});${0}
 endsnippet
 
+snippet vd
+var_dump($1);$0
+endsnippet
+
 snippet e
 echo "${1}";${0}
 endsnippet
@@ -231,85 +235,54 @@ $0
 endsnippet
 
 snippet pub "Public function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-public function ${1:name}(${2:$param})
+public function ${1:name}(${2})
 {
-	${VISUAL}${5:return null;}
+	${VISUAL}${5}
 }
 $0
 endsnippet
 
 snippet pro "Protected function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-protected function ${1:name}(${2:$param})
+protected function ${1:name}(${2})
 {
-	${VISUAL}${5:return null;}
+	${VISUAL}${5}
 }
 $0
 endsnippet
 
 snippet pri "Private function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-private function ${1:name}(${2:$param})
+private function ${1:name}(${2})
 {
-	${VISUAL}${5:return null;}
+	${VISUAL}${5}
 }
 $0
 endsnippet
 
 snippet pubs "Public static function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-public static function ${1:name}(${2:$param})
+public static function ${1:name}(${2})
 {
-	${VISUAL}${5:return null;}
+	${VISUAL}${5}
 }
 $0
 endsnippet
 
 snippet pros "Protected static function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-protected static function ${1:name}(${2:$param})
+protected static function ${1:name}(${2})
 {
-	${VISUAL}${5:return null;}
+	${VISUAL}${5}
 }
 $0
 endsnippet
 
 snippet pris "Private static function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-private static function ${1:name}(${2:$param})
+private static function ${1:name}(${2})
 {
-	${VISUAL}${5:return null;}
+	${VISUAL}${5}
 }
 $0
 endsnippet
 
 snippet fun "Function snip" b
-//********************     function $1($2)
 function ${1}(${2})
 {
 	${VISUAL}$0

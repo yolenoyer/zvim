@@ -96,6 +96,15 @@ noremap <silent> <c-f10> :tabm +1<cr>
 
 
 
+"'''''''''''''''''''' Terminal windows
+
+tnoremap <c-x> <c-w>N
+tnoremap <c-PageUp> <c-w>:tabprev<cr>
+tnoremap <c-PageDown> <c-w>:tabnext<cr>
+
+
+
+
 "'''''''''''''''''''' Défilement de la vue
 
 " Faire défiler en laissant le curseur en place

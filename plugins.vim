@@ -337,8 +337,18 @@ if $ZV != 'light'
 
 
 
+endif
+
+
+
+if $ZV == 'try'
+
+
+	Plugin 'shougo/vinarise.vim'
+
 
 endif
+
 
 
 if $YCM == '1'

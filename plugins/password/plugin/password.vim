@@ -14,3 +14,11 @@ function! Pwd(...)
 	return call('password#gen', a:000)
 endf
 
+"'''''''''''''''''''' function! GenPassword(...)
+" Génère des mots de passe
+"   a:1  Taille éventuelle, sinon utilise g:genpassword_size
+"   a:2  Jeu de caractères autorisés pour le mot de passe, sinon utilise g:genpassword_charset
+function! GenPassword(...)
+	return call('password#gen', a:000)
+endf
+
