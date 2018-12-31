@@ -232,6 +232,9 @@ if $ZV != 'light'
 	" Wrapper pour gref
 	LocalPlugin gref
 
+	" Wrapper pour la commande shell buf (fonction B() )
+	LocalPlugin buf
+
 	" Sandbox
 	LocalPlugin sandbox
 	let g:sandbox_mapleader = "\<f2>\<f2>"

@@ -20,6 +20,9 @@ let g:aliases = {
 \	'cmb' : 'mapclear <buffer>',
 \	'fs'  : 'FontSize',
 \
+\	'wd'  : 'windo',
+\	'td'  : 'tabdo',
+\
 \
 \
 \	'th'  : 'tab h',

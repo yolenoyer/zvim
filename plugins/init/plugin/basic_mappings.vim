@@ -185,6 +185,13 @@ nnoremap <c-w><c-q> :wqa<cr>
 
 
 
+"'''''''''''''''''''' Fichier sous le curseur
+
+map <F2>f :tab wincmd f<cr>
+
+
+
+
 "'''''''''''''''''''' Désactivation de l'aide avec <F1>
 
 map <f1> <nop>
@@ -196,4 +203,5 @@ imap <f1> <lt>F1>
 "'''''''''''''''''''' Toggle d'options globales
 
 noremap <silent> <F1>m :call _#toggle_option('mouse', ['a', ''], v:true)<cr>
+noremap <silent> <F1>l :set rnu! nu!<cr>
 

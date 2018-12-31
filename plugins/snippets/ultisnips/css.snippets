@@ -1,6 +1,23 @@
 priority -52
 
 
+snippet ls:n
+list-style: none;
+endsnippet
+
+snippet anim
+animation: $1 ${2:1s} ease-in-out infinite alternate;
+
+@keyframes $1 {
+	0% {
+		$3
+	}
+	100% {
+		$4
+	}
+}
+endsnippet
+
 snippet us:n
 user-select: none;
 endsnippet
@@ -147,6 +164,10 @@ endsnippet
 
 snippet td:u
 text-decoration: underline;
+endsnippet
+
+snippet ta
+text-align: ${1:center};$0
 endsnippet
 
 snippet ta:c
@@ -352,6 +373,10 @@ snippet c:d
 cursor: default;
 endsnippet
 
+snippet c:na
+cursor: not-allowed;
+endsnippet
+
 snippet fs:s
 font-size: smaller;
 endsnippet
@@ -371,6 +396,10 @@ font-size: ${1};$0
 endsnippet
 
 snippet fsz
+font-size: ${1};$0
+endsnippet
+
+snippet sz
 font-size: ${1};$0
 endsnippet
 

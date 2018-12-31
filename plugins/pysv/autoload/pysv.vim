@@ -62,8 +62,8 @@ function! pysv#get_path(is_global, key)
 	endif
 
 	let l:path = l:shortcuts[a:key]
-	if !isdirectory(l:path)
-		throw printf("Le chemin '%s' n'est pas un répertoire", l:path)
+	if empty(glob(l:path))
+		throw printf("Le chemin '%s' n'existe pas", l:path)
 	endif
 
 	return l:path
@@ -75,6 +75,9 @@ endf
 function! s:common_sv(is_global, key, ...)
 	try
 		let l:path = pysv#get_path(a:is_global, a:key)
+		if !isdirectory(l:path)
+			throw printf("Le chemin '%s' n'est pas un répertoire", l:path)
+		endif
 	catch
 		call _#error('pysv', v:exception)
 	endtry
@@ -124,6 +127,7 @@ function! pysv#parse_path(path)
 		let l:infos.relative_path_start = len(l:infos.root_path) + 1
 	else
 		let l:infos.key = a:path
+		let l:infos.whole_path = pysv#get_path(0, l:infos.key)
 	endif
 
 	return l:infos

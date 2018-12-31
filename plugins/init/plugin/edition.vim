@@ -35,7 +35,7 @@ inoremap <c-b> <c-x><c-p>
 
 "'''''''''''''''''''' Dupliquer une ligne (edit mode)
 
-inoremap <c-_> <esc>:t+0<cr>gi<c-o>j
+" inoremap <c-_> <esc>:t+0<cr>gi<c-o>j
 
 
 

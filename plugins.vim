@@ -78,9 +78,9 @@ Plugin 'tpope/vim-abolish'
 " Commandes unix:
 Plugin 'tpope/vim-eunuch'
 call _#cabbr({
- \	'mv' : 'Move', 'rm' : 'Delete',
- \	'chmod' : 'Chmod', 'chx' : 'Chmod +x',
- \	'ww' : 'SudoWrite',
+ \	'mv': 'Move',     'rn': 'Rename', 'rm': 'Delete',
+ \	'chmod': 'Chmod', 'chx': 'Chmod +x',
+ \	'ww': 'SudoWrite',
  \ })
 
 
@@ -334,6 +334,8 @@ if $ZV != 'light'
 	" Javascript (syntaxe/indentation): 
 	Plugin 'pangloss/vim-javascript'
 	Plugin 'leafgarland/typescript-vim'
+	" HTML :
+	Plugin 'docunext/closetag.vim'
 
 
 
