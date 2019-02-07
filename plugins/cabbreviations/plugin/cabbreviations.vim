@@ -21,7 +21,13 @@ let g:aliases = {
 \	'fs'  : 'FontSize',
 \
 \	'wd'  : 'windo',
-\	'td'  : 'tabdo',
+\
+\	'wbw' : 'windo bw',
+\
+\	'vt'  : 'vert term',
+\	'tt'  : 'tab term',
+\
+\	'ssfs': 'syntax sync fromstart',
 \
 \
 \

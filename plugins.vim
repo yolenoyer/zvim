@@ -107,6 +107,7 @@ fun! AddMyCycleGroups()
 		\ ['black', 'white'], ['dark', 'light'],
 		\ [ 'blue', 'green', 'orange', 'cyan', 'red', 'purple', 'yellow' ],
         \ ['x', 'y'],
+        \ ['development', 'production'],
 		\]
 	for l:group in l:groups
 		call AddCycleGroup(l:group)
@@ -275,6 +276,8 @@ if $ZV != 'light'
 	Plugin 'scrooloose/nerdtree'
 	let NERDTreeQuitOnOpen = 1  " Ferme le menu à l'ouverture d'un fichier
 	let NERDTreeMapPreview = 'v'
+	nnoremap <silent> <space>f :NERDTreeFind<cr>
+	nnoremap <silent> <F2>f :NERDTreeToggle<cr>
 	nnoremap <silent> <space>t :NERDTreeFind<cr>
 	nnoremap <silent> <F2>t :NERDTreeToggle<cr>
 
@@ -328,16 +331,29 @@ if $ZV != 'light'
 	"'''''''''''''''''''' Filetypes addons
 	" Twig :
 	Plugin 'lumiliet/vim-twig'
+
+	" Pug :
 	Plugin 'digitaltoad/vim-pug'
-	" Javascript ES7 :
-	" Plugin 'othree/yajs.vim'
-	" Javascript (syntaxe/indentation): 
+
+	" Javascript :
 	Plugin 'pangloss/vim-javascript'
+
+	" Typescript :
 	Plugin 'leafgarland/typescript-vim'
+
+	" React jsx :
+	Plugin 'mxw/vim-jsx'
+
 	" HTML :
 	Plugin 'docunext/closetag.vim'
 
+	" PlantUML :
+	Plugin 'aklt/plantuml-syntax'
 
+
+
+	"'''''''''''''''''''' tests
+	Plugin 'ReplaceWithRegister'
 
 endif
 

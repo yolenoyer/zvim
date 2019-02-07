@@ -1,12 +1,8 @@
 
-"'''''''''''''''''''' Inversions . / ; / , / ?
+"'''''''''''''''''''' Dot repeat avec '!'
 
-noremap . ;
-noremap ; .
-noremap ? ,
-noremap g? ?
-noremap g/ ?
-noremap <space>? ?
+noremap ! .
+noremap g! !
 
 
 
@@ -34,6 +30,16 @@ noremap m: @:
 
 
 
+"'''''''''''''''''''' Touche <F12> = <Esc>
+
+noremap <f12> <esc>
+inoremap <f12> <esc>
+vnoremap <f12> <esc>
+cnoremap <f12> <esc>
+
+
+
+
 "'''''''''''''''''''' Déplacements curseur
 
 noremap <silent> <Down> gj
@@ -42,8 +48,6 @@ inoremap <silent> <Down> <c-o>gj
 inoremap <silent> <Up> <c-o>gk
 
 noremap ç ^
-noremap <home> ^
-noremap <kHome> ^
 
 if has('gui_running')
 	noremap <kEnter> G
@@ -59,6 +63,9 @@ noremap ( '[
 
 noremap <space>; f<space>
 noremap <space>, f<space>,
+
+" Aller à la première occurence du mot sous le curseur dans le fichier:
+noremap cd [<c-i>
 
 
 
@@ -92,6 +99,9 @@ noremap <silent> <f9> :tabprevious<cr>
 noremap <silent> <f10> :tabnext<cr>
 noremap <silent> <c-f9> :tabm -1<cr>
 noremap <silent> <c-f10> :tabm +1<cr>
+
+noremap <silent> <f2>n :tabnew<cr>
+noremap <silent> <f2>d :tabnew<bar>set bt=nofile<cr>
 
 
 

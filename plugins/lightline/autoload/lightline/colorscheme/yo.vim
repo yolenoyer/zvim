@@ -39,6 +39,17 @@ let s:p.normal.error = [ [ s:red, s:base02 ] ]
 let s:p.normal.warning = [ [ s:yellow, s:base01 ] ]
 let s:p.normal.git = [ [ s:orange, s:base02 ] ]
 
-hi Lightline_Pysv cterm=bold gui=bold ctermfg=214 ctermbg=236 guifg=#e8e8d3 guibg=#30302c
 
-let g:lightline#colorscheme#yo#palette = lightline#colorscheme#flatten(s:p)
+command! LightlineColorscheme call s:install()
+
+
+let s:first = 1
+
+function! s:install()
+	hi Lightline_Pysv cterm=bold gui=bold ctermfg=214 ctermbg=236 guifg=#e8e8d3 guibg=#30302c
+	if s:first
+		let s:first = 0
+		let g:lightline#colorscheme#yo#palette = lightline#colorscheme#flatten(s:p)
+	endif
+endf
+

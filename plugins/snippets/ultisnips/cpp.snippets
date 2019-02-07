@@ -5,17 +5,165 @@ extends c
 # We want to overwrite everything in parent ft.
 priority -49
 
-snippet un
+
+
+# TYPES:
+
+snippet c "" iw
+const $1 &$0
+endsnippet
+
+snippet s "" iw
+std::string
+endsnippet
+
+snippet si "" iw
+std::string::iterator
+endsnippet
+
+snippet cs "" iw
+const std::string &
+endsnippet
+
+
+# VECTOR:
+
+snippet v "" iw
+std:vector<$1>$0
+endsnippet
+
+snippet vs "" iw
+std::vector<std::string>
+endsnippet
+
+snippet b "" iw
+std::begin($1)$0
+endsnippet
+
+snippet e "" iw
+std::end($1)$0
+endsnippet
+
+snippet be "" iw
+std::begin($1), std::end($1)$0
+endsnippet
+
+snippet it "" iw
+iterator
+endsnippet
+
+
+# CLASSES, NAMESPACE:
+
+snippet t "" iw
+this->
+endsnippet
+
+snippet s: "" iw
+std::
+endsnippet
+
+snippet un "" b
 using namespace ${1};${0}
 endsnippet
 
-snippet uns
+snippet uns "" b
 using namespace std;
 endsnippet
 
-snippet dl
+
+# COUT, LOG:
+
+snippet cout "" iw
+std::cout << $1;$0
+endsnippet
+
+snippet coutl "" iw
+std::cout << $1 << std::endl;$0
+endsnippet
+
+snippet nl "" iw
+std::endl
+endsnippet
+
+snippet dl "" b
 debug_log("${1}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
 endsnippet
+
+
+# PRÉPROCESSEUR:
+
+snippet i "" b
+#include <$1>$0
+endsnippet
+
+snippet i< "" b
+#include <$1>$0
+endsnippet
+
+snippet i" "" b
+#include "$1"$0
+endsnippet
+
+snippet ii "" b
+#include "$1"$0
+endsnippet
+
+snippet #i "" b
+#include <$1>$0
+endsnippet
+
+snippet d "" b
+#define $0
+endsnippet
+
+snippet #d "" b
+#define $0
+endsnippet
+
+snippet id "" b
+#ifdef $0
+endsnippet
+
+snippet ei "" b
+#endif
+endsnippet
+
+snippet #id "" b
+#ifdef $0
+endsnippet
+
+snippet #ei "" b
+#endif
+endsnippet
+
+
+# INCLUDES COMMUNS:
+
+snippet #is "" b
+#include <string>
+endsnippet
+
+snippet #iio "" b
+#include <iostream>
+endsnippet
+
+snippet #iv "" b
+#include <vector>
+endsnippet
+
+
+# DOCUMENTATION:
+
+snippet @p "" iw
+@param ${1:<name>}  ${2:<description>}
+endsnippet
+
+snippet @r "" iw
+@return  $0
+endsnippet
+
+
 
 ###########################################################################
 #                            TextMate Snippets                            #
@@ -58,8 +206,8 @@ snippet map "std::map (map)"
 std::map<${1:key}, ${2:value}> map$0;
 endsnippet
 
-snippet vector "std::vector (v)"
-std::vector<${1:char}> v$0;
+snippet vec "std::vector (v)"
+std::vector<$1> $0;
 endsnippet
 
 snippet tp "template <typename ..> (template)"

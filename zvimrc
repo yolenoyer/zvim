@@ -196,6 +196,9 @@ if $ZV != 'light'
 	LocalPlugin returnkey
 	map <f1><cr> <plug>ReturnkeyToggleMode
 
+	" Touche <home> amléliorée
+	LocalPlugin linestart
+
 	" Table mode (<cr> revient toujours à la même colonne de départ)
 	LocalPlugin tablemode
 	imap <f1>t <plug>TablemodeToggle
@@ -260,8 +263,13 @@ if $ZV != 'light'
 	LocalPlugin funcheader
 	map <F3><F1> <plug>FuncheaderHeader
 
+	" Thème de couleurs:
+	LocalPlugin colorscheme
+	call colorscheme#set()
+
 	" Colorscheme perso pour lightline
-	LocalPlugin lightline
+	exe 'source' s:local_plugins_path.'/lightline/autoload/lightline/colorscheme/yo.vim'
+	LightlineColorscheme
 
 	" Fichier mot de passe
 	LocalPlugin mdp
@@ -275,6 +283,20 @@ if $ZV != 'light'
 	" Recherche web:
 	LocalPlugin websearch
 	let g:websearch_mapleader = "\<F1>"
+
+	" Surbrillance d'une colonne (80 par défaut):
+	LocalPlugin col80
+	map <F1>: <Plug>Col80SetColOrToggle
+	map <F1>! <Plug>Col80SetCurrentCol
+	map <F1><bar> <Plug>Col80SetCurrentCol
+	map <bar> <Plug>Col80SetCurrentCol
+	noremap g<bar> <bar>
+
+	" Coloration syntaxique pour les fichiers .gitignore:
+	LocalPlugin gitignore
+
+	" Fixs de raccourcis clavier pour tmux:
+	LocalPlugin tmux
 
 
 
@@ -299,7 +321,7 @@ if $ZV != 'light'
 	" Listtools
 
 	let g:listtools_dev_mode = 1
-	let g:listtools_enable_abbr = 1
+	let g:listtools_enable_cabbr = 1
 	let g:listtools_leader = '<space>l'
 
 	cabbr lm LTMatch
@@ -313,14 +335,14 @@ if $ZV != 'light'
 
 	" Colorscheme :
 
-	set background=dark
-	colorscheme gruvbox
-	hi Normal ctermbg=232 guibg=black
-	hi CursorLine ctermbg=234 guibg=#202020 gui=NONE
-	hi SignColumn ctermbg=234
-	hi Visual ctermbg=238 cterm=NONE term=NONE gui=NONE guibg=#303030
-	hi Search ctermbg=240 ctermfg=yellow cterm=bold term=bold
-	hi CursorLineNr ctermbg=NONE guibg=NONE
+	" set background=dark
+	" colorscheme gruvbox
+	" hi Normal ctermbg=232 guibg=black
+	" hi CursorLine ctermbg=234 guibg=#202020 gui=NONE
+	" hi SignColumn ctermbg=234
+	" hi Visual ctermbg=238 cterm=NONE term=NONE gui=NONE guibg=#303030
+	" hi Search ctermbg=240 ctermfg=yellow cterm=bold term=bold
+	" hi CursorLineNr ctermbg=NONE guibg=NONE
 
 	" colorscheme desert
 	" hi Normal guibg=black

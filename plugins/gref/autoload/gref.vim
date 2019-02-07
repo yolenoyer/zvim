@@ -37,7 +37,7 @@ endf
 
 "'''''''''''''''''''' function! gref#get_file_list(search, ...)
 function! gref#get_file_list(search, ...)
-	let l:args = ['gref', a:search, '-l']
+	let l:args = ['gref', '-', a:search, '-l']
 	call extend(l:args, a:000)
 	return call('_#systemlist', l:args)
 endf

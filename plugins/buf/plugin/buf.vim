@@ -1,7 +1,12 @@
 
 "'''''''''''''''''''' function! B(...)
 function! B(...)
-	call call(function('buf#buf'), a:000)
+	return call(function('buf#buf'), a:000)
+endf
+
+"'''''''''''''''''''' function! B(...)
+function! BL(...)
+	return call(function('buf#buflist'), a:000)
 endf
 
 
