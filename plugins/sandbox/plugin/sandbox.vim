@@ -5,7 +5,7 @@
 
 " Configuration :
 
-call _#let_default('g:sandbox_templates_dir', '~/info/templates/sandbox')
+call _#let_default('g:sandbox_templates_dir', '~/.vim/template')
 
 
 

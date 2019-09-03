@@ -39,6 +39,20 @@ function! s:yank_infos()
 endf
 
 
+"'''''''''''''''''''' function! s:yank_one_line()
+function! s:yank_one_line()
+	let @+ = mdp#get_value()
+	echo "Valeur copiée dans le presse-papier"
+endf
+
+
+"'''''''''''''''''''' function! mdp#get_value()
+function! mdp#get_value()
+	let l:line = getline('.')
+	return matchstr(l:line, '^\A*.\{-}\s*:\s*\zs.\{-}\ze\()\{2,}\|\)$')
+endf
+
+
 "******************** function! mdp#fold_text(line)
 function! mdp#fold_text(line)
 	let l:ret = getline(v:foldstart)
@@ -59,9 +73,11 @@ function! mdp#install()
 	set cole=3 cocu=vinc
 	set foldlevel=0 foldenable
 	set foldtext=mdp#fold_text(v:foldstart)
-	map <buffer> <left> zc
-	map <buffer> <right> zo
-	map <buffer> <c-y> :call <sid>yank_infos()<cr>
+	noremap <buffer> <left> zc
+	noremap <buffer> <right> zo
+	noremap <buffer> <c-y> :call <sid>yank_infos()<cr>
+	noremap <buffer> <silent> gy :call <sid>yank_one_line()<cr>
+	noremap <buffer> <silent> yy :call <sid>yank_one_line()<cr>
 endf
 
 

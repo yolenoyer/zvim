@@ -298,6 +298,9 @@ if $ZV != 'light'
 	" Fixs de raccourcis clavier pour tmux:
 	LocalPlugin tmux
 
+	" Fichiers todo:
+	LocalPlugin todo
+
 
 
 	" Qpatterns

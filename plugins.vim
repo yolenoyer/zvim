@@ -106,9 +106,10 @@ fun! AddMyCycleGroups()
 		\ ['col', 'line', 'row'], ['cols', 'lines', 'rows'],
 		\ ['black', 'white'], ['dark', 'light'],
 		\ [ 'blue', 'green', 'orange', 'cyan', 'red', 'purple', 'yellow' ],
-        \ ['x', 'y'],
-        \ ['development', 'production'],
-		\]
+		\ [ 'target', 'source' ],
+		\ ['x', 'y'],
+		\ ['development', 'production'],
+	\]
 	for l:group in l:groups
 		call AddCycleGroup(l:group)
 	endfor
